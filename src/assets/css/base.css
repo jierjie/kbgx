@@ -1,0 +1,249 @@
+@charset "utf-8";
+
+/* 这个css是初始化的css，在任何项目里面都可以使用 */
+/* 禁用iPhone中Safari的字号自动调整 */
+/* 设置HTML5元素为块 */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section {
+  display: block;
+}
+
+/* 图片自适应 */
+img {
+  width: 100%;
+  height: auto;
+  width: auto \9;
+  /* ie8 */
+  display: block;
+  -ms-interpolation-mode: bicubic;
+  /*为了照顾ie图片缩放失真*/
+}
+
+/* 初始化 */
+body,
+div,
+ul,
+li,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea,
+select,
+p,
+dl,
+dt,
+dd,
+a,
+img,
+button,
+form,
+table,
+th,
+tr,
+td,
+tbody,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  /* 解决IOS默认滑动很卡的情况 */
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  min-height: 100vh;
+}
+
+body {
+  min-height: 100vh;
+  font-size: 20px;
+  /*margin:0 8px;*/
+  margin: 0 auto;
+  max-width: 750px;
+  background-color: #fff;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 禁止缩放表单 */
+input[type='submit'],
+input[type='reset'],
+input[type='button'],
+input[type='number'],
+input {
+  resize: none;
+  border: none;
+  outline: none;
+}
+/*去除浏览器默认上下箭头*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* 取消链接高亮  */
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+em,
+i {
+  font-style: normal;
+}
+
+ul,
+li,
+ol {
+  list-style-type: none;
+}
+
+strong {
+  font-weight: normal;
+}
+
+.clearfix:after {
+  content: '';
+  display: block;
+  visibility: hidden;
+  height: 0;
+  clear: both;
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+a {
+  text-decoration: none;
+  color: #969696;
+  /* font-family: "Microsoft YaHei", Tahoma, Arial, sans-serif; */
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+}
+
+img {
+  border: none;
+}
+
+/*单行溢出*/
+.one-txt-cut {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/*多行溢出 手机端使用*/
+.txt-cut {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+input {
+  padding: 5px 10px;
+  font-size: 16px;
+  caret-color: #55b6b3;
+}
+
+input[type='button'] {
+  background-color: deepskyblue;
+  font-size: 26px;
+  letter-spacing: 6px;
+  color: #fff;
+  padding: 5px 10px;
+  margin-top: 10px;
+}
+
+input,
+button {
+  -webkit-appearance: none;
+  outline: none;
+  border: 0;
+  background: none;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+input[disabled],
+input:disabled,
+input.disabled {
+  color: #333;
+  -webkit-text-fill-color: #333;
+  -webkit-opacity: 1;
+  opacity: 1;
+}
+input {
+  box-sizing: border-box;
+  padding: 0.24rem;
+  background: rgba(85, 182, 179, 0.09);
+  color: #000;
+}
+input::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #999;
+  font-size: 0.24rem;
+  line-height: 0.33rem;
+}
+
+input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #999;
+  font-size: 0.24rem;
+  line-height: 0.33rem;
+}
+
+input:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #999;
+  font-size: 0.24rem;
+  line-height: 0.33rem;
+}
+
+input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #999;
+  font-size: 0.24rem;
+  line-height: 0.33rem;
+}
