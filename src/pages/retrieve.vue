@@ -12,7 +12,7 @@
             <i>验证码</i>
             <input type="text" placeholder="请输入验证码" v-model.trim="form.code" ref='code'>
             <div class='clear clear-code' v-show="form.code" @click="clear('code')">×</div>
-            <b @click='sendValidateCode'>{{countingDone?'重获验证码('+countdown+'s)':'获取验证码'}}</b>
+            <b @click='sendValidateCode' :class="{'no-active':countingDone}">{{countingDone?'重获验证码('+countdown+'s)':'获取验证码'}}</b>
           </li>
         </ul>
         <p class='loginBtn' @click='next' :class="{'notActive':!isNext}">下一步</p>
@@ -195,6 +195,11 @@ export default {
             font-size: 0.24rem;
             font-weight: 400;
             color: rgba(85, 182, 179, 1);
+            white-space: nowrap;
+            &.no-active {
+              color: #999999;
+              border: 0.02rem solid rgba(204, 204, 204, 1);
+            }
           }
         }
         span {

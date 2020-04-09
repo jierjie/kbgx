@@ -12,7 +12,7 @@ export default new Router({
       name: 'Login',
       component: r => require(['../pages/login.vue'], r),
       meta: {
-        title: '库博光学'
+        title: '登录'
       }
     },
     {
@@ -33,7 +33,7 @@ export default new Router({
       path: '/home',
       component: r => require(['../pages/home.vue'], r),
       meta: {
-        title: '首页'
+        title: '库博视光学院'
       }
     },
     {
@@ -54,7 +54,7 @@ export default new Router({
       path: '*',
       redirect: '/login',
       meta: {
-        title: '库博光学'
+        title: '登录'
       }
     }
   ]

@@ -11,16 +11,16 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/cooper': {
-        target: 'http://u7qqyr.natappfree.cc', // target host
-        // target: 'http://39.98.132.132:8080', // target host
+        // target: 'http://u7qqyr.natappfree.cc', // target host
+        target: 'http://39.98.132.132:8080', // target host
         changeOrigin: true, // needed for virtual hosted sites
         pathRewrite: {
           // '^/cooper': '/cooper' //需要rewrite重写的,
         }
       },
       '/user': {
-        target: 'http://u7qqyr.natappfree.cc', // target host
-        // target: 'http://39.98.132.132:8080', // target host
+        // target: 'http://u7qqyr.natappfree.cc', // target host
+        target: 'http://39.98.132.132:8080', // target host
         changeOrigin: true, // needed for virtual hosted sites
         pathRewrite: {
           // '^/user': '/user' //需要rewrite重写的,
