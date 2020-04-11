@@ -1,12 +1,12 @@
 <template>
   <div class="list">
-    <img src="@/assets/img/logo1.png" alt="">
+    <!-- <img src="@/assets/img/logo1.png" alt=""> -->
     <ul>
       <li v-for='(i,index) in courseList' :key='index' @click="goDetail(i.id)">
         <img :src="i.videoImage" alt="">
       </li>
       <li @click="goDetail">
-        <img src="@/assets/img/2.jpg" alt="">
+        <!-- <img src="@/assets/img/2.jpg" alt=""> -->
       </li>
     </ul>
     <bottom-bar></bottom-bar>

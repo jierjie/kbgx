@@ -84,7 +84,6 @@ export default {
       }
       UserService.validate(this.form)
         .then(res => {
-          console.log(res)
           this.isActive = 2
         })
     },
@@ -93,7 +92,7 @@ export default {
         this.isPasswordError = true
         return
       }
-      UserService.changePwd({ phone: this.form.phone, password: this.form.password })
+      UserService.changePwd({ phone: this.form.phone, password: this.form.password, code: this.form.code })
         .then(res => {
           localStorage.user = JSON.stringify(res || {})
           this.$notify({ type: 'success', message: '修改密码成功' });

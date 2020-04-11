@@ -2,8 +2,9 @@ import axios from 'axios'
 // import NProgress from 'nprogress'
 import Vue from 'vue'
 import { Notify } from 'vant'
-
+import router from '../router'
 Vue.use(Notify)
+
 const service = axios.create({
   timeout: 15000,
   headers: {
@@ -44,7 +45,6 @@ service.interceptors.response.use(
         return response.data.data ? response.data.data : true
       } else {
         Notify({ type: 'danger', message: response.data.msg })
-        // return response.data.data
         return Promise.reject(response.data.data)
       }
     }
@@ -56,7 +56,12 @@ service.interceptors.response.use(
       Notify({ type: 'danger', message: '请求超时，请稍后再试' })
       return Promise.reject(error)
     }
-    console.log('response-err', error.message)
+    // console.log('response-err', error.response)
+    if (error.response && +error.response.status === 401) {
+      Notify({ type: 'danger', message: '请您先登录' })
+      router.push('/')
+      return Promise.reject(error)
+    }
     Notify({ type: 'danger', message: error.message || '操作失败！' })
     return Promise.reject(error)
   }

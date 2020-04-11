@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <img src="@/assets/img/logo1.png" alt="">
+    <!-- <img src="@/assets/img/logo1.png" alt=""> -->
     <ul class='tab'>
       <li v-for='(i,index) in modulesList' :key=index @click="getTopics(i)">{{i}}</li>
       <!-- <li>精品课程</li>
-                                  <li>直播频道</li> -->
+                                    <li>直播频道</li> -->
     </ul>
     <ul class='course'>
       <li v-for="(i,index) in topicsList" :key='index' @click='goCourseList(i)'>{{i}}</li>

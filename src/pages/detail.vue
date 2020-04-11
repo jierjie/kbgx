@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
-    <img src="@/assets/img/logo1.png" alt="">
-    <img class='live' src="@/assets/img/1.jpg" alt="">
+    <!-- <img src="@/assets/img/logo1.png" alt=""> -->
+    <!-- <img class='live' src="@/assets/img/1.jpg" alt=""> -->
     <textarea placeholder="留言区"></textarea>
     <div class='check'>
       <div class='left'>
