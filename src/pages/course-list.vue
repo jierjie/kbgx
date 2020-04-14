@@ -1,28 +1,34 @@
 <template>
   <div class="list">
-    <!-- <img src="@/assets/img/logo1.png" alt=""> -->
+    <top-logo></top-logo>
     <ul>
-      <li v-for='(i,index) in courseList' :key='index' @click="goDetail(i.id)">
-        <img :src="i.videoImage" alt="">
-      </li>
-      <li @click="goDetail">
-        <!-- <img src="@/assets/img/2.jpg" alt=""> -->
+      <li v-for='(i,index) in computedCourseList' :key='index' @click="goDetail(i)">
+        <img :src="i.imgUrl" alt="">
       </li>
     </ul>
-    <bottom-bar></bottom-bar>
   </div>
 </template>
 
 <script>
-import { BottomBar } from '@/components'
 import { ClassService } from '@/service'
+import { TopLogo } from '@/components'
 export default {
   components: {
-    BottomBar
+    TopLogo
   },
   data() {
     return {
       courseList: []
+    }
+  },
+  computed: {
+    computedCourseList() {
+      return this.courseList.map(i => {
+        return {
+          ...i,
+          imgUrl: localStorage.originUrl + i.image
+        }
+      })
     }
   },
   created() {
@@ -37,8 +43,12 @@ export default {
         })
 
     },
-    goDetail(id) {
-      this.$router.push({ path: '/detail', query: { id: id } })
+    goDetail(i) {
+      if (i.type === 'video') {
+        this.$router.push({ path: '/detail', query: { id: i.id, sources: i.url } })
+      } else {
+        window.location.href = i.url
+      }
     }
   }
 }
@@ -47,18 +57,15 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='less' scoped>
 .list {
-  position: relative;
-  >img {
-    height: 1rem;
-    width: auto;
-  }
+  min-height: 100vh;
+  padding: 0 0.3rem;
   ul {
     li {
       cursor: pointer;
-      margin: .12rem 0;
+      margin-bottom: .2rem;
       img {
         width: 100%;
-        height: 3rem;
+        height: auto;
       }
     }
   }

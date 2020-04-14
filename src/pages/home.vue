@@ -1,41 +1,75 @@
 <template>
   <div class="home">
-    <!-- <img src="@/assets/img/logo1.png" alt=""> -->
-    <ul class='tab'>
-      <li v-for='(i,index) in modulesList' :key=index @click="getTopics(i)">{{i}}</li>
-      <!-- <li>精品课程</li>
-                                    <li>直播频道</li> -->
-    </ul>
-    <ul class='course'>
-      <li v-for="(i,index) in topicsList" :key='index' @click='goCourseList(i)'>{{i}}</li>
-    </ul>
+    <top-logo></top-logo>
+    <!-- 轮播图 -->
+    <div class='live'>
+      <van-swipe :autoplay="3000">
+        <van-swipe-item v-for="i in computedLiveList" :key="i.id" @click='goLive(i)'>
+          <img v-lazy="i.imgUrl" />
+        </van-swipe-item>
+      </van-swipe>
+    </div>
+    <!-- 精品 -->
+    <div class='fine-class'>
+      <ul>
+        <li v-for='(i,index) in computedTopicsList' :key="index" @click='goCourseList(i.name)'>
+          <img v-if='i.imgUrl' :src="i.imgUrl" alt="">
+          <div v-else></div>
+        </li>
+        <li>
+          <img src="@/assets/img/c06.png" alt="">
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 import { ClassService } from '@/service'
-
+import { TopLogo } from '@/components'
 export default {
+  components: { TopLogo },
   data() {
     return {
-      modulesList: [],
-      topicsList: []
+      topicsList: [],
+      liveList: []
+    }
+  },
+  computed: {
+    computedLiveList() {
+      return this.liveList.map(i => {
+        return {
+          ...i,
+          imgUrl: localStorage.originUrl + i.image
+        }
+      })
+    },
+    computedTopicsList() {
+      return this.topicsList.map(i => {
+        return {
+          ...i,
+          imgUrl: localStorage.originUrl + i.img_url
+        }
+      })
     }
   },
   created() {
-    // 模块
-    this.getModules()
+    this.getClass()
+    this.getTopics()
   },
   methods: {
-    getModules() {
-      ClassService.getModules()
+    goLive(i) {
+      window.location.href = i.url
+    },
+    // 轮播图
+    getClass() {
+      ClassService.getClass('直播课程')
         .then(res => {
-          this.getTopics(res[0])
-          this.modulesList = res
+          this.liveList = res
         })
     },
-    getTopics(i) {
-      ClassService.getTopics(i)
+    getTopics() {
+      ClassService.getTopics()
         .then(res => {
           this.topicsList = res
         })
@@ -51,31 +85,39 @@ export default {
 <style lang='less' scoped>
 @blue-color : #55B6B3;
 .home {
-  img {
-    height: 1rem;
-    width: auto;
-  }
-  .tab {
-    height: .8rem;
-    margin: .3rem 0 .3rem;
-    li {
-      float: left;
-      width: 48%;
-      line-height: .8rem;
-      text-align: center;
-      background: #ccc;
-      margin: 0 1%;
+  padding: 0 0.3rem;
+  min-height: 100vh;
+  .live {
+    margin-bottom: .4rem;
+    height: 3.2rem;
+    background: #EAF2F9;
+    .van-swipe {
+      height: 3.2rem;
+      img {
+        height: 3.2rem;
+      }
     }
   }
-  .course {
-    margin: 0 .1rem .6rem;
-    li {
-      background: @blue-color;
-      line-height: 2rem;
-      padding-left: .6rem;
-      color: #fff;
-      font-size: .6rem;
-      margin-bottom: .2rem;
+  .fine-class {
+    background: rgba(234, 242, 249, 1);
+    border-radius: 0.08rem;
+    padding: 0.2rem 0.3rem 0;
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      li {
+        width: 3.05rem;
+        margin-top: 0.2rem;
+        div {
+          height: 1.6rem;
+          background: #fff;
+        }
+        img {
+          background: #fff;
+          width: 3.05rem;
+        }
+      }
     }
   }
 }

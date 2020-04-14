@@ -40,14 +40,21 @@ export default new Router({
       path: '/course/list',
       component: r => require(['../pages/course-list.vue'], r),
       meta: {
-        title: '列表'
+        title: '课程列表'
       }
     },
     {
       path: '/detail',
       component: r => require(['../pages/detail.vue'], r),
       meta: {
-        title: '详情'
+        title: '课程详情'
+      }
+    },
+    {
+      path: '/addcomment',
+      component: r => require(['../pages/add-comment.vue'], r),
+      meta: {
+        title: '留言'
       }
     },
     {

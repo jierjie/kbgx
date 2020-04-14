@@ -25,8 +25,20 @@ const ClassService = {
     return Http.get(`/cooper/class/getModules`)
   },
   // GET  获取课程分类（二级菜单名称）
-  getTopics: module => {
-    return Http.get(`/cooper/class/getTopics?module=${module}`)
+  getTopics: () => {
+    return Http.get(`/cooper/class/getTopics`)
+  },
+  // GET /cooper/class/log_open 频记录打开
+  logOpen: data => {
+    return Http.get(
+      `/cooper/class/log_open?userId=${data.userId}&classId=${data.classId}`
+    )
+  },
+  // 视频记录时长 GET /cooper/class/log_update
+  logUpdate: data => {
+    return Http.get(
+      `/cooper/class/log_update?id=${data.id}&watchTime=${data.watchTime}`
+    )
   }
 }
 const UserService = {
@@ -56,7 +68,8 @@ const UserService = {
   }
 }
 const CommentService = {
-  // 添加评论
+  // 添加评论 classId（课程），userId(发表评论者)，
+  // content（内容）,isPub(是否公开0：公开，1：私密)
   addComment: data => {
     return Http.post(`/cooper/comment/add`, data)
   },

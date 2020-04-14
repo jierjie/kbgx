@@ -4,31 +4,34 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 // import 'vant/lib/index.css'
+import 'video.js/dist/video-js.css'
 import '@/assets/css/base.css'
 import '@/utils/rem.js'
 import '@/assets/icon/iconfont.css'
 import {
-  Button,
   Checkbox,
-  Form,
-  Field,
   Popup,
   Picker,
   Notify,
   Area,
-  Toast
+  Toast,
+  Swipe,
+  SwipeItem,
+  Lazyload,
+  Icon
 } from 'vant'
 Vue.config.productionTip = false
 
-Vue.use(Button)
 Vue.use(Checkbox)
-Vue.use(Form)
-Vue.use(Field)
 Vue.use(Popup)
 Vue.use(Picker)
 Vue.use(Notify)
 Vue.use(Area)
 Vue.use(Toast)
+Vue.use(Swipe)
+Vue.use(SwipeItem)
+Vue.use(Lazyload)
+Vue.use(Icon)
 /* eslint-disable no-new */
 
 router.beforeEach((to, from, next) => {
