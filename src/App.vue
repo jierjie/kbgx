@@ -22,6 +22,7 @@ export default {
   font-family: PingFangSC-Regular, PingFang SC, 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
   min-height: 100vh;
 }
 </style>

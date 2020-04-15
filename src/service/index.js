@@ -39,6 +39,12 @@ const ClassService = {
     return Http.get(
       `/cooper/class/log_update?id=${data.id}&watchTime=${data.watchTime}`
     )
+  },
+  // GET /cooper/class/validate 验证邀请码
+  validate: data => {
+    return Http.get(
+      `/cooper/class/validate?classId=${data.classId}&code=${data.code}`
+    )
   }
 }
 const UserService = {

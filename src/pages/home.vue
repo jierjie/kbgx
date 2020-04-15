@@ -16,7 +16,7 @@
           <img v-if='i.imgUrl' :src="i.imgUrl" alt="">
           <div v-else></div>
         </li>
-        <li>
+        <li @click='goGZH'>
           <img src="@/assets/img/c06.png" alt="">
         </li>
       </ul>
@@ -32,7 +32,8 @@ export default {
   data() {
     return {
       topicsList: [],
-      liveList: []
+      liveList: [],
+      gzhUrl: ''
     }
   },
   computed: {
@@ -67,6 +68,11 @@ export default {
         .then(res => {
           this.liveList = res
         })
+      ClassService.getClass('公众号')
+        .then(res => {
+          console.log(res)
+          this.gzhUrl = res[0].url
+        })
     },
     getTopics() {
       ClassService.getTopics()
@@ -76,6 +82,9 @@ export default {
     },
     goCourseList(i) {
       this.$router.push({ path: '/course/list', query: { topic: i } })
+    },
+    goGZH() {
+      window.location.href = this.gzhUrl
     }
   }
 }
@@ -95,6 +104,7 @@ export default {
       height: 3.2rem;
       img {
         height: 3.2rem;
+        width: 6.9rem;
       }
     }
   }
@@ -103,18 +113,20 @@ export default {
     border-radius: 0.08rem;
     padding: 0.2rem 0.3rem 0;
     ul {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      font-size: 0;
       li {
         width: 3.05rem;
         margin-top: 0.2rem;
+        display: inline-block;
+        vertical-align: top;
+        &:nth-child(2n) {
+          margin-left: .2rem;
+        }
         div {
           height: 1.6rem;
           background: #fff;
         }
         img {
-          background: #fff;
           width: 3.05rem;
         }
       }

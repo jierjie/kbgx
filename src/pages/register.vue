@@ -140,7 +140,7 @@ export default {
       UserService.registry(this.form)
         .then(res => {
           localStorage.user = JSON.stringify(res || {})
-          this.$notify({ type: 'success', message: '注册成功' });
+          this.$toast('注册成功')
           // 登录成功 跳转首页
           this.$router.push('/home')
         })

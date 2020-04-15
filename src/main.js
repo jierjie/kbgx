@@ -12,7 +12,6 @@ import {
   Checkbox,
   Popup,
   Picker,
-  Notify,
   Area,
   Toast,
   Swipe,
@@ -25,7 +24,6 @@ Vue.config.productionTip = false
 Vue.use(Checkbox)
 Vue.use(Popup)
 Vue.use(Picker)
-Vue.use(Notify)
 Vue.use(Area)
 Vue.use(Toast)
 Vue.use(Swipe)

@@ -2,14 +2,11 @@
   <div class="add-comment">
     <top-logo></top-logo>
     <textarea placeholder="留言区" v-model="form.content"></textarea>
-    <div class='check'>
-      <div class='left' v-if='!form.parentId'>
-        <p>私密留言</p>
-        <van-checkbox v-model="isPrivate">
-        </van-checkbox>
-      </div>
-      <p class='right' @click='addComment'>发表留言</p>
+    <div class='check' v-if='!form.parentId'>
+      <span :class="{'isPub':form.isPub}" @click="isPubHandler"></span>
+      <p>私密留言</p>
     </div>
+    <p class='submit' @click='addComment'>发表留言</p>
   </div>
 </template>
 
@@ -40,16 +37,23 @@ export default {
   methods: {
     addComment() {
       let data = { ...this.form }
-      data.userId = this.user.id
-      if (this.isPrivate) {
-        data.isPub = 1
+      if (!data.content.trim()) {
+        this.$toast('发表的言论不能为空')
+        return
       }
+      data.userId = this.user.id
       CommentService.addComment(data)
         .then(res => {
-          this.$notify({ type: 'success', message: '评论成功' })
-          this.form.content = ''
-          this.form.isPub = 0
+          this.$router.push({ path: '/detail', query: { id: this.$route.query.classId } })
+          this.$toast('评论成功')
         })
+    },
+    isPubHandler() {
+      if (this.form.isPub) {
+        this.form.isPub = 0
+      } else {
+        this.form.isPub = 1
+      }
     }
   }
 }
@@ -60,7 +64,6 @@ export default {
 .add-comment {
   position: relative;
   padding: 0 0.3rem;
-
   .talk {
     border-bottom: 1px solid #ccc;
     padding-bottom: .3rem;
@@ -78,35 +81,48 @@ export default {
     }
   }
   textarea {
-    border: 1px solid #000;
+    margin: 0;
     border-radius: 0;
-    width: calc(100% - .2rem);
-    margin: 0 0 .1rem .1rem;
-    height: 1.5rem;
-    font-size: .3rem;
+    border: none;
+    width: 6.9rem;
+    height: 2.2rem;
   }
   .check {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .left {
-      flex: 1;
-      height: .46rem;
-      line-height: .46rem;
-      font-size: .3rem;
-      p,
-      >div {
-        display: inline-block;
-        vertical-align: middle;
+    margin-top: 0.34rem;
+    padding-left: 0.05rem;
+    font-size: 0;
+    span {
+      display: inline-block;
+      vertical-align: middle;
+      width: 0.31rem;
+      height: 0.31rem;
+      background: #fff url("../assets/img/check.png") no-repeat 0 0;
+      background-size: 100% 100%;
+      margin-right: 0.24rem;
+      &.isPub {
+        background: #fff url("../assets/img/check-square.png") no-repeat 0 0;
+        background-size: 100% 100%;
       }
     }
-    .right {
-      border: 1px solid #000;
-      line-height: .46rem;
-      height: .46rem;
-      font-size: .3rem;
-      padding: 0 .2rem;
+    p {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 0.24rem;
+      color: rgba(153, 153, 153, 1);
+      line-height: 0.33rem;
     }
+  }
+  .submit {
+    margin-top: 0.6rem;
+    line-height: .8rem;
+    height: 0.8rem;
+    font-size: .3rem;
+    padding: 0 .2rem;
+    background: rgba(85, 182, 179, 1);
+    border-radius: 0.04rem;
+    font-size: 0.32rem;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
   }
 }
 </style>

@@ -2,17 +2,9 @@
   <div class="detail">
     <top-logo></top-logo>
     <div class='my-palyer'>
-      <video-player class="video-player vjs-custom-skin" ref="videoPlayer" :playsinline="playsinline" :options="playerOptions" @play="onPlayerPlay($event)" @pause="onPlayerPause($event)" @ended="onPlayerEnded($event)"></video-player>
+      <video-player class="video-player vjs-custom-skin" ref="videoPlayer" :playsinline="playsinline" :options="playerOptions" @timeupdate="onPlayerTimeupdate($event)"></video-player>
+      <!-- @play="onPlayerPlay($event)"  @pause="onPlayerPause($event)"  @ended="onPlayerEnded($event)" -->
     </div>
-    <!-- <textarea placeholder="留言区"></textarea>
-                                                    <div class='check'>
-                                                      <div class='left'>
-                                                        <p>私密留言</p>
-                                                        <van-checkbox v-model="isPrivate">
-                                                        </van-checkbox>
-                                                      </div>
-                                                      <p class='right'>发表留言</p>
-                                                    </div> -->
     <div class='talk'>
       <span @click='commentHanlder()'>
         <van-icon name="chat-o" />
@@ -82,9 +74,8 @@ export default {
     }
   },
   beforeDestroy() {
-    console.log(this.openId, this.watchTime)
     this.logUpdate({ id: this.openId, watchTime: this.watchTime })
-    console.log('beforeDestroy')
+    // console.log('beforeDestroy')
   },
   computed: {
     playsinline() {
@@ -107,7 +98,7 @@ export default {
     }
   },
   created() {
-    this.playerOptions.sources[0].src = localStorage.originUrl + this.$route.query.sources
+    this.playerOptions.sources[0].src = localStorage.originUrl + sessionStorage.sources
     // this.playerOptions.poster = localStorage.originUrl + "/images/1/0411.png"
     const classId = this.$route.query.id
     this.query = {
@@ -139,19 +130,23 @@ export default {
         })
     },
     // listen event
-    onPlayerPlay(player) {
-      console.log('player play!', player)
-    },
-    onPlayerPause(player) {
-      console.log('player pause!', player.currentTime())
-      let watchTime = parseInt(player.currentTime())
-      if (watchTime > this.watchTime) {
-        this.watchTime = watchTime
-      }
-    },
-    onPlayerEnded(player) {
-      console.log('player end!', player.currentTime())
-      let watchTime = parseInt(player.currentTime())
+    // onPlayerPlay(player) {
+    //   console.log('player play!', player)
+    // },
+    // onPlayerPause(player) {
+    //   let watchTime = parseInt(player.currentTime())
+    //   if (watchTime > this.watchTime) {
+    //     this.watchTime = watchTime
+    //   }
+    // },
+    // onPlayerEnded(player) {
+    //   let watchTime = parseInt(player.currentTime())
+    //   if (watchTime > this.watchTime) {
+    //     this.watchTime = watchTime
+    //   }
+    // },
+    onPlayerTimeupdate(player) {
+      let watchTime = parseInt(player.cache_.currentTime)
       if (watchTime > this.watchTime) {
         this.watchTime = watchTime
       }
@@ -165,7 +160,7 @@ export default {
     logUpdate(data) {
       ClassService.logUpdate(data)
         .then(res => {
-          console.log(111, res)
+          // console.log(111, res)
         })
     }
   }
@@ -182,7 +177,7 @@ export default {
     margin-bottom: .4rem;
   }
   .talk {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 0.01rem solid #ccc;
     padding-bottom: .3rem;
     p {
       line-height: 0.5rem;
@@ -197,42 +192,11 @@ export default {
       margin-top: 0.05rem;
     }
   }
-  textarea {
-    border: 1px solid #000;
-    border-radius: 0;
-    width: calc(100% - .2rem);
-    margin: 0 0 .1rem .1rem;
-    height: 1.5rem;
-    font-size: .3rem;
-  }
-  .check {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .left {
-      flex: 1;
-      height: .46rem;
-      line-height: .46rem;
-      font-size: .3rem;
-      p,
-      >div {
-        display: inline-block;
-        vertical-align: middle;
-      }
-    }
-    .right {
-      border: 1px solid #000;
-      line-height: .46rem;
-      height: .46rem;
-      font-size: .3rem;
-      padding: 0 .2rem;
-    }
-  }
   ul {
     padding-bottom: 0.2rem;
     li {
       padding: .16rem .3rem;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 0.01rem solid #ccc;
       h6 {
         color: #55B6B3;
         font-size: 0.28rem;
@@ -255,5 +219,8 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
 }
 </style>

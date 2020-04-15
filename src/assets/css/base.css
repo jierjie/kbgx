@@ -244,3 +244,40 @@ input:-moz-placeholder {
   font-size: 0.24rem;
   line-height: 0.32rem;
 }
+
+textarea {
+  font-size: 0.32rem;
+  line-height: 0.32rem;
+  caret-color: #55b6b3;
+  box-sizing: border-box;
+  padding: 0.24rem;
+  background: rgba(85, 182, 179, 0.09);
+  color: #000;
+}
+textarea::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #999;
+  font-size: 0.24rem;
+  line-height: 0.4rem;
+}
+
+textarea::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #999;
+  font-size: 0.24rem;
+  line-height: 0.32rem;
+}
+
+textarea:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #999;
+  font-size: 0.24rem;
+  line-height: 0.32rem;
+}
+
+textarea:-moz-placeholder {
+  /* Firefox 18- */
+  color: #999;
+  font-size: 0.24rem;
+  line-height: 0.32rem;
+}

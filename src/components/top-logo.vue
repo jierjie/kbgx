@@ -12,8 +12,9 @@ export default {}
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='less' scoped>
 .top {
+  box-sizing: content-box;
   height: 0.8rem;
-  margin-bottom: 0.3rem;
+  padding: 0.3rem 0;
   img {
     height: auto;
     &.logo {

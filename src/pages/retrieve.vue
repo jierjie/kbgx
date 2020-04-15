@@ -95,7 +95,7 @@ export default {
       UserService.changePwd({ phone: this.form.phone, password: this.form.password, code: this.form.code })
         .then(res => {
           localStorage.user = JSON.stringify(res || {})
-          this.$notify({ type: 'success', message: '修改密码成功' });
+          this.$toast('修改密码成功')
           // 登录成功 跳转首页
           this.$router.push('/home')
         })
@@ -152,7 +152,7 @@ export default {
 <style lang='less' scoped>
 @blue-color : #55B6B3;
 .retrieve {
-  padding-top: 0.6rem;
+  padding-top: 0.9rem;
   .form {
     padding-bottom: 0.4rem;
     background: #fff;
