@@ -94,7 +94,7 @@ export default {
 <style lang='less' scoped>
 @blue-color : #55B6B3;
 .home {
-  padding: 0.4rem 0.3rem 0;
+  padding: 0 0.3rem;
   min-height: 100vh;
   .live {
     margin-bottom: .5rem;
