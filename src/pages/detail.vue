@@ -2,9 +2,9 @@
   <div class="detail">
     <top-logo></top-logo>
     <!-- <video class='my-video' controls autoplay name="media" meted="meted" style="object-fit:fill"
-                   webkit-playsinline="true" playsinline="true" x-webkit-airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen='true'>
-                                                                                <source src='http://39.98.132.132/videos/1/0415-01.mp4' type='video/mp4'>
-                                                                              </video> -->
+                       webkit-playsinline="true" playsinline="true" x-webkit-airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen='true'>
+                                                                                    <source src='http://39.98.132.132/videos/1/0415-01.mp4' type='video/mp4'>
+                                                                                  </video> -->
     <div class='my-palyer'>
       <video-player class="video-player vjs-custom-skin" autoplay meted="meted" ref="videoPlayer" :playsinline="playsinline" :options="playerOptions" @timeupdate="onPlayerTimeupdate($event)"></video-player>
     </div>
@@ -47,7 +47,7 @@ export default {
       },
       url: localStorage.originUrl + sessionStorage.sources,
       playerOptions: {
-        playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
+        // playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
         autoplay: true, //如果true,浏览器准备好时开始回放。
         muted: false, // 默认情况下将会消除任何音频。
         loop: false, // 导致视频一结束就重新开始。
@@ -247,5 +247,9 @@ export default {
   background-position: 0 0;
   background-size: 100% 100%;
   background-repeat: repeat;
+}
+
+.detail /deep/ .video-js .vjs-volume-panel {
+  display: none;
 }
 </style>

@@ -33,7 +33,7 @@ export default new Router({
       path: '/home',
       component: r => require(['../pages/home.vue'], r),
       meta: {
-        title: '库博视光学院'
+        title: ''
       }
     },
     {
