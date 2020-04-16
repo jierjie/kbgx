@@ -94,10 +94,10 @@ export default {
 <style lang='less' scoped>
 @blue-color : #55B6B3;
 .home {
-  padding: 0 0.3rem;
+  padding: 0.2rem 0.3rem 0.3rem;
   min-height: 100vh;
   .live {
-    margin-bottom: .4rem;
+    margin: 0.2rem 0 .6rem;
     height: 3.2rem;
     background: #EAF2F9;
     .van-swipe {
@@ -114,9 +114,10 @@ export default {
     padding: 0.2rem 0.3rem 0;
     ul {
       font-size: 0;
+      padding-bottom: 0.5rem;
       li {
         width: calc((100% - 0.2rem)/2);
-        margin-top: 0.2rem;
+        margin-top: 0.5rem;
         display: inline-block;
         vertical-align: top;
         &:nth-child(2n) {
@@ -133,4 +134,45 @@ export default {
     }
   }
 }
+
+// .home {
+//   padding: 0 0.3rem;
+//   min-height: 100vh;
+//   .live {
+//     margin-bottom: .4rem;
+//     height: 3.2rem;
+//     background: #EAF2F9;
+//     .van-swipe {
+//       height: 3.2rem;
+//       img {
+//         height: 3.2rem;
+//         width: 6.9rem;
+//       }
+//     }
+//   }
+//   .fine-class {
+//     background: rgba(234, 242, 249, 1);
+//     border-radius: 0.08rem;
+//     padding: 0.2rem 0.3rem 0;
+//     ul {
+//       font-size: 0;
+//       li {
+//         width: calc((100% - 0.2rem)/2);
+//         margin-top: 0.2rem;
+//         display: inline-block;
+//         vertical-align: top;
+//         &:nth-child(2n) {
+//           margin-left: 0.2rem;
+//         }
+//         div {
+//           height: 1.6rem;
+//           background: #fff;
+//         }
+//         img {
+//           width: 100%;
+//         }
+//       }
+//     }
+//   }
+// }
 </style>

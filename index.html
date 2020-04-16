@@ -3,8 +3,9 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0 ,minimum-scale=1.0,viewport-fit=cover" >
   <title>库博视光学院</title>
+  <!-- 在 head 标签中添加 meta 标签，并设置 viewport-fit=cover 值 -->
 </head>
 
 <body>
@@ -46,7 +47,7 @@
         link: cur_url_ini,  //当前项目的链接
         imgUrl: 'http://www.ccmtv.cn/upload_files/new_upload_files/pro_sh2019/tshidai16/images/fx.jpg'  //分享图片
       };
-      // alert(shareData)
+      // console.log(shareData)
       wx.ready(function () {
         wx.onMenuShareAppMessage(shareData);
         wx.onMenuShareTimeline(shareData);
