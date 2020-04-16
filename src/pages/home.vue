@@ -120,7 +120,7 @@ export default {
         display: inline-block;
         vertical-align: top;
         &:nth-child(2n) {
-          margin-left: .2rem;
+          margin-left: calc(100% - 6.1rem);
         }
         div {
           height: 1.6rem;
