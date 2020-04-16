@@ -41,7 +41,8 @@ export default {
       return this.liveList.map(i => {
         return {
           ...i,
-          imgUrl: localStorage.originUrl + i.image
+          imgUrl: localStorage.originUrl + i.image,
+          liveUrl: localStorage.originUrl + i.url
         }
       })
     },
@@ -60,7 +61,7 @@ export default {
   },
   methods: {
     goLive(i) {
-      window.location.href = i.url
+      window.location.href = i.liveUrl
     },
     // 轮播图
     getClass() {
@@ -70,7 +71,6 @@ export default {
         })
       ClassService.getClass('公众号')
         .then(res => {
-          console.log(res)
           this.gzhUrl = res[0].url
         })
     },

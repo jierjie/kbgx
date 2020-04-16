@@ -82,6 +82,7 @@ export default {
         .then(res => {
           this.show = false
           sessionStorage.sources = this.course.url
+          sessionStorage.coverImg = this.course.coverImg
           this.$router.push({ path: '/detail', query: { id: this.course.id } })
         })
         .catch(() => {
@@ -97,6 +98,8 @@ export default {
     },
     closeHandle() {
       this.form.code = ''
+      document.body.scrollTop = 0
+      document.documentElement.scrollTop = 0
     }
   }
 }
@@ -107,6 +110,7 @@ export default {
 .list {
   min-height: 100vh;
   padding: 0 0.3rem;
+  background: #fff;
   ul {
     li {
       cursor: pointer;

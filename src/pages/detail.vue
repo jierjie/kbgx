@@ -1,10 +1,14 @@
 <template>
   <div class="detail">
     <top-logo></top-logo>
+    <!-- <video class='my-video' controls autoplay name="media" meted="meted" style="object-fit:fill"
+                   webkit-playsinline="true" playsinline="true" x-webkit-airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen='true'>
+                                                                                <source src='http://39.98.132.132/videos/1/0415-01.mp4' type='video/mp4'>
+                                                                              </video> -->
     <div class='my-palyer'>
-      <video-player class="video-player vjs-custom-skin" ref="videoPlayer" :playsinline="playsinline" :options="playerOptions" @timeupdate="onPlayerTimeupdate($event)"></video-player>
-      <!-- @play="onPlayerPlay($event)"  @pause="onPlayerPause($event)"  @ended="onPlayerEnded($event)" -->
+      <video-player class="video-player vjs-custom-skin" autoplay meted="meted" ref="videoPlayer" :playsinline="playsinline" :options="playerOptions" @timeupdate="onPlayerTimeupdate($event)"></video-player>
     </div>
+    <!-- @play="onPlayerPlay($event)"  @pause="onPlayerPause($event)"  @ended="onPlayerEnded($event)" -->
     <div class='talk'>
       <span @click='commentHanlder()'>
         <van-icon name="chat-o" />
@@ -41,9 +45,10 @@ export default {
         content: '',
         isPub: 0
       },
+      url: localStorage.originUrl + sessionStorage.sources,
       playerOptions: {
         playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
-        autoplay: false, //如果true,浏览器准备好时开始回放。
+        autoplay: true, //如果true,浏览器准备好时开始回放。
         muted: false, // 默认情况下将会消除任何音频。
         loop: false, // 导致视频一结束就重新开始。
         preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
@@ -99,7 +104,7 @@ export default {
   },
   created() {
     this.playerOptions.sources[0].src = localStorage.originUrl + sessionStorage.sources
-    // this.playerOptions.poster = localStorage.originUrl + "/images/1/0411.png"
+    this.playerOptions.poster = localStorage.originUrl + sessionStorage.coverImg
     const classId = this.$route.query.id
     this.query = {
       classId: this.$route.query.id,
@@ -213,6 +218,11 @@ export default {
       }
     }
   }
+  .my-video {
+    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
+  }
 }
 
 .detail /deep/ .video-js .vjs-big-play-button {
@@ -222,5 +232,20 @@ export default {
   width: 1rem;
   height: 1rem;
   border-radius: 50%;
+  background: rgba(43, 51, 63, 0.7) url("../assets/img/go.png") no-repeat 0.1rem 0.1rem;
+  background-size: 80% 80%;
+  >span {
+    display: none;
+  }
+}
+
+.detail /deep/ .video-js {
+  background: transparent;
+}
+
+.detail /deep/ .vjs-poster {
+  background-position: 0 0;
+  background-size: 100% 100%;
+  background-repeat: repeat;
 }
 </style>
