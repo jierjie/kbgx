@@ -115,19 +115,19 @@ export default {
     ul {
       font-size: 0;
       li {
-        width: 3.05rem;
+        width: calc((100% - 0.2rem)/2);
         margin-top: 0.2rem;
         display: inline-block;
         vertical-align: top;
         &:nth-child(2n) {
-          margin-left: calc(100% - 6.1rem);
+          margin-left: 0.2rem;
         }
         div {
           height: 1.6rem;
           background: #fff;
         }
         img {
-          width: 3.05rem;
+          width: 100%;
         }
       }
     }
