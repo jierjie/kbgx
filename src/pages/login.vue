@@ -23,59 +23,106 @@
 </template>
 
 <script>
-import { UserService } from '@/service'
-export default {
-  data() {
-    return {
-      form: {
-        phone: '',
-        password: ''
+  import {UserService, WXService} from '@/service'
+  import wx from 'weixin-js-sdk'
+
+  console.log(wx)
+
+  export default {
+    data() {
+      return {
+        form: {
+          phone: '',
+          password: ''
+        }
       }
-    }
-  },
-  computed: {
-    isLogin() {
-      if (this.form.phone && this.form.password) {
-        return true
-      }
-      return false
-    }
-  },
-  created() {
-    // this.WXConfig.wxShowMenu("test-title", "http://cooper.duoruime.top/v1/images/0416-c01.png")
-  },
-  methods: {
-    register() {
-      this.$router.push('/register')
     },
-    goRetrieve() {
-      this.$router.push('/retrieve')
+    computed: {
+      isLogin() {
+        if (this.form.phone && this.form.password) {
+          return true
+        }
+        return false
+      }
     },
-    goLogin() {
-      if (!this.isLogin) {
-        return
-      }
-      if (!(/^1[3456789]\d{9}$/.test(this.form.phone))) {
-        this.$toast('请输入正确的手机号码')
-        return
-      }
-      UserService.login(this.form)
-        .then(res => {
-          localStorage.user = JSON.stringify(res || {})
-          // this.$toast('登录成功')
-          // 登录成功 跳转首页
-          this.$router.push('/home')
+    created() {
+      this.wxServer()
+    },
+    methods: {
+      register() {
+        this.$router.push('/register')
+      },
+      goRetrieve() {
+        this.$router.push('/retrieve')
+      },
+      goLogin() {
+        if (!this.isLogin) {
+          return
+        }
+        if (!(/^1[3456789]\d{9}$/.test(this.form.phone))) {
+          this.$toast('请输入正确的手机号码')
+          return
+        }
+        UserService.login(this.form)
+          .then(res => {
+            localStorage.user = JSON.stringify(res || {})
+            // this.$toast('登录成功')
+            // 登录成功 跳转首页
+            this.$router.push('/home')
+          })
+      },
+      inputFocus(type) {
+        this.$refs[type].focus()
+      },
+      clear(type) {
+        this.form[type] = ""
+        this.inputFocus(type)
+      },
+      wxServer() {
+        //签名的URL
+        let sign_url = '';
+        if (window.__wxjs_is_wkwebview === true) {
+          //如果当前设备是IOS
+          sign_url = window.location.href.split('#')[0];
+        } else {
+          //非IOS设备
+          sign_url = window.location.href;
+        }
+        WXService.getSignature(sign_url)
+          .then(data => {
+            wx.config({
+              debug: false,
+              // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印
+              appId: data.appId,
+              timestamp: data.timestamp,
+              nonceStr: data.nonceStr,
+              signature: data.signature,
+              jsApiList: [
+                "updateAppMessageShareData",//分享给朋友”及“分享到QQ
+                "updateTimelineShareData" //分享到朋友圈”及“分享到QQ空间
+              ]
+            });
+            wx.ready(function () {
+              let data = {
+                title: '我的视界库', // 分享标题
+                desc: '库博视光学院，同一个视界，同一个梦想', // 分享描述
+                link: 'http://cooper.duoruime.top/#/login', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: 'http://cooper.duoruime.top/v1/images/share/share.png', // 分享图标
+                success: () => {
+                }
+              }
+              wx.updateAppMessageShareData(data)
+              wx.updateTimelineShareData(data)
+            });
+            wx.error(function (res) {
+              console.log(res)
+            })
+          }).catch(err => {
+          console.log(err)
         })
-    },
-    inputFocus(type) {
-      this.$refs[type].focus()
-    },
-    clear(type) {
-      this.form[type] = ""
-      this.inputFocus(type)
+      }
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

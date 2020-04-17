@@ -1,5 +1,4 @@
 import Http from './request'
-import axios from 'axios'
 
 // 过滤 单维对象
 function filterQuery(query) {
@@ -93,11 +92,9 @@ const ConstService = {
     return Http.get(`/cooper/const/getPosition`)
   }
 }
-const WXShare = {
-  getWXConfig: url => {
-    return axios.get(
-      `http://www.ccmtv.cn/upload_files/new_upload_files/pro_sh/share_acc/jssdk.php?cur_url=${url}`
-    )
+const WXService = {
+  getSignature: data => {
+    return Http.post(`/cooper/wx/getSignature`, data)
   }
 }
-export { ClassService, UserService, CommentService, ConstService, WXShare }
+export { ClassService, UserService, CommentService, ConstService,WXService }
