@@ -20,6 +20,11 @@ import {
   Lazyload,
   Icon
 } from 'vant'
+
+// 微信分享
+// import WXConfig from '@/utils/wx.jsapi' // 微信分享
+// Vue.prototype.WXConfig = WXConfig
+
 Vue.config.productionTip = false
 
 Vue.use(Checkbox)

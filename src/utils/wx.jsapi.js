@@ -1,15 +1,21 @@
 // import axios from 'axios'
 
-import { WXShare } from '../service'
+import { WXService } from '../service'
 
 export default {
   wxShowMenu: function(title, img) {
-    let pageurl = encodeURIComponent(window.location.href)
+    let pageurl = ''
+    // let pageurl = encodeURIComponent(window.location.href)
+    if (window.__wxjs_is_wkwebview === true) {
+      //如果当前设备是IOS
+      pageurl = window.location.href.split('#')[0]
+    } else {
+      //非IOS设备
+      pageurl = window.location.href
+    }
     // console.log(window.location.href);
-    WXShare.getWXConfig(pageurl).then(function(res) {
-      let data = res.data.slice(1, res.data.length - 1)
-      var getMsg = JSON.parse(data)
-      console.log(getMsg)
+    WXService.getSignature(pageurl).then(function(res) {
+      let getMsg = res
       wx.config({
         debug: true, //生产环境需要关闭debug模式
         appId: getMsg.appId, //appId通过微信服务号后台查看
@@ -47,7 +53,7 @@ export default {
         wx.updateTimelineShareData({
           title: title, // 分享标题
           desc: '我在真知灼见跟随大咖学金融，赶紧一起加入吧！', //分享描述
-          link: location.href.split('#')[0], // 分享链接
+          link: 'http://cooper.duoruime.top/#/home', // 分享链接
           imgUrl: img // 分享图标
         })
 
@@ -55,7 +61,8 @@ export default {
         wx.updateAppMessageShareData({
           title: title, // 分享标题
           desc: '我在真知灼见跟随大咖学金融，赶紧一起加入吧！', //分享描述
-          link: location.href.split('#')[0], // 分享链接
+          link: pageurl, // 分享链接
+          // link: location.href.split('#')[0], // 分享链接
           imgUrl: img, // 分享图标
           success: function(res) {
             alert('updateAppMessageShareData', res)
