@@ -15,50 +15,53 @@
 
 </html>
 <script src="http://www.ccmtv.cn/ccmtv2016/js/jquery.min.js"></script>
-<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+<!-- <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> -->
 <script>
-  var posturl = "http://www.ccmtv.cn/upload_files/new_upload_files/pro_sh/share_acc/jssdk.php";
-  var cur_url_ini = window.location.href;
-  var cur_url = encodeURIComponent(cur_url_ini.split('#')[0]);//分享成功之后再次分享，微信会再url附带额外参数造成二次分享签名错误，这里处理下避免config：invalid signature签名失效
-  $.ajax({
-    type: "get",
-    url: posturl + "?cur_url=" + cur_url,
-    dataType: "jsonp",
-    jsonp: "callback",
-    jsonpCallback: "success_jsonpCallback",
-    success: function (data) {
-      wx.config({
-        debug: false,
-        // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印
-        appId: data.appId,
-        timestamp: data.timestamp,
-        nonceStr: data.nonceStr,
-        signature: data.signature,
-        jsApiList: [
-          "onMenuShareTimeline", //分享给好友
-          "onMenuShareAppMessage", //分享到朋友圈
-          "onMenuShareQQ",  //分享到QQ
-          'onMenuShareQZone'
-        ]
-      });
-      var shareData = {
-        title: '预装T时代-跨界共享论坛',  //主标题
-        desc: '北京，2019年10月19日', //副标题
-        link: cur_url_ini,  //当前项目的链接
-        imgUrl: 'http://www.ccmtv.cn/upload_files/new_upload_files/pro_sh2019/tshidai16/images/fx.jpg'  //分享图片
-      };
-      // console.log(shareData)
-      wx.ready(function () {
-        wx.onMenuShareAppMessage(shareData);
-        wx.onMenuShareTimeline(shareData);
-        wx.onMenuShareQQ(shareData);
-        wx.onMenuShareWeibo(shareData);
-      });
-    },
-    error: function (data) {
-      // alert(JSON.stringify(data));
-      // alert("连接失败！");
-    }
-  });
+  // var posturl = "http://www.ccmtv.cn/upload_files/new_upload_files/pro_sh/share_acc/jssdk.php";
+  // var cur_url_ini = window.location.href;
+  // var cur_url = encodeURIComponent(cur_url_ini.split('#')[0]);//分享成功之后再次分享，微信会再url附带额外参数造成二次分享签名错误，这里处理下避免config：invalid signature签名失效
+  // $.ajax({
+  //   type: "get",
+  //   url: posturl + "?cur_url=" + cur_url,
+  //   dataType: "jsonp",
+  //   jsonp: "callback",
+  //   jsonpCallback: "success_jsonpCallback",
+  //   success: function (data) {
+  //     wx.config({
+  //       debug: false,
+  //       // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印
+  //       appId: data.appId,
+  //       timestamp: data.timestamp,
+  //       nonceStr: data.nonceStr,
+  //       signature: data.signature,
+  //       jsApiList: [
+  //         'updateAppMessageShareData', //分享给好友
+  //         'updateTimelineShareData', //分享到朋友圈
+  //         "onMenuShareTimeline", //分享给好友
+  //         "onMenuShareAppMessage", //分享到朋友圈
+  //         // "onMenuShareQQ",  //分享到QQ
+  //         // 'onMenuShareQZone'
+  //       ]
+  //     });
+  //     var shareData = {
+  //       title: 'test',  //主标题
+  //       desc: 'desc-test', //副标题
+  //       link: cur_url_ini,  //当前项目的链接
+  //       imgUrl: 'http://cooper.duoruime.top/v1/images/0416-c01.png'  //分享图片
+  //     };
+  //     // console.log(shareData)
+  //     wx.ready(function () {
+  //       wx.onMenuShareAppMessage(shareData);
+  //       wx.onMenuShareTimeline(shareData);
+  //       wx.onMenuShareQQ(shareData);
+  //       wx.onMenuShareWeibo(shareData);
+  //     });
+  //   },
+  //   error: function (data) {
+  //     // alert(JSON.stringify(data));
+  //     // alert("连接失败！");
+  //   }
+  // });
 
 </script>

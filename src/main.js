@@ -8,6 +8,11 @@ import 'video.js/dist/video-js.css'
 import '@/assets/css/base.css'
 import '@/utils/rem.js'
 import '@/assets/icon/iconfont.css'
+
+// 微信分享
+import WXConfig from '@/utils/wx.jsapi' // 微信分享
+Vue.prototype.WXConfig = WXConfig
+
 import {
   Checkbox,
   Popup,

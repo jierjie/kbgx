@@ -41,6 +41,9 @@ export default {
       return false
     }
   },
+  created() {
+    // this.WXConfig.wxShowMenu("test-title", "http://cooper.duoruime.top/v1/images/0416-c01.png")
+  },
   methods: {
     register() {
       this.$router.push('/register')

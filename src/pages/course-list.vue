@@ -8,8 +8,8 @@
     </ul>
     <van-popup v-model="show" closeable @close='closeHandle'>
       <div class='my-pop'>
-        <i>邀请码</i>
-        <input type="text" placeholder="请输入视频邀请码" v-model.trim="form.code" @focus="inputFocus('code')" ref='code'>
+        <i>专属码</i>
+        <input type="text" placeholder="请输入专属码" v-model.trim="form.code" @focus="inputFocus('code')" ref='code'>
         <span class="clear" v-show="form.code" @click="clear('code')">×</span>
         <div @click='submit' :class="{'btn':true,'no-active':!isSubmit}">确认</div>
       </div>
