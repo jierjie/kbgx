@@ -104,9 +104,9 @@ export default {
           wx.ready(function() {
             let data = {
               title: '我的视界库', // 分享标题
-              desc: '库博视光学院，同一个视界，同一个梦想', // 分享描述
-              link: 'http://cooper.duoruime.top/#/login', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: 'http://cooper.duoruime.top/v1/images/share/share.png', // 分享图标
+              desc: '库博光学视光学院', // 分享描述
+              link: 'http://cooper.duoruime.top/#/home', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: 'http://cooper.duoruime.top/v1/images/share/share01.png', // 分享图标
               success: () => {
               }
             }
