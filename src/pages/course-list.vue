@@ -86,7 +86,7 @@ export default {
           this.$router.push({ path: '/detail', query: { id: this.course.id } })
         })
         .catch(() => {
-          this.$toast('邀请码错误')
+          this.$toast('专属码错误')
         })
     },
     inputFocus(type) {
