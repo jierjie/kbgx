@@ -94,7 +94,7 @@ export default {
       }
       UserService.changePwd({ phone: this.form.phone, password: this.form.password, code: this.form.code })
         .then(res => {
-          localStorage.user = JSON.stringify(res || {})
+          localStorage.user = JSON.stringify({ id: res.id, phone: res.phone } || {})
           this.$toast('修改密码成功')
           // 登录成功 跳转首页
           this.$router.push('/home')
