@@ -126,7 +126,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='less' scoped>
-@blue-color : #55B6B3;
+@blue-color : #1BC9DB;
 .login {
   position: relative;
   >img {
