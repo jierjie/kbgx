@@ -24,8 +24,8 @@
     <van-popup v-model="show" closeable @close='closeHandle'>
       <div class='my-pop'>
         <i>专属码</i>
-        <input type="text" placeholder="请输入专属码" v-model.trim="code" @focus="inputFocus('code')" ref='code'>
-        <span class="clear" v-show="code" @click="clear('code')">×</span>
+        <input type="text" placeholder="请输入专属码" v-model.trim="form.code" @focus="inputFocus('code')" ref='code'>
+        <span class="clear" v-show="form.code" @click="clear('code')">×</span>
         <div @click='submit' :class="{'btn':true,'no-active':!isSubmit}">确认</div>
       </div>
     </van-popup>
@@ -42,7 +42,9 @@ export default {
       topicsList: [],
       liveList: [],
       gzhUrl: '',
-      code: '',
+      form: {
+        code: ''
+      },
       show: false,
       live: {}
     }
@@ -66,7 +68,7 @@ export default {
       })
     },
     isSubmit() {
-      if (this.code) {
+      if (this.form.code) {
         return true
       }
       return false
@@ -82,13 +84,14 @@ export default {
         return
       }
       // 验证码校验
-      ClassService.validate({ code: this.code, classId: this.live.id })
+      ClassService.validate({ ...this.form, classId: this.live.id })
         .then(res => {
           this.show = false
           window.location.href = this.live.liveUrl
         })
         .catch(() => {
           this.$toast('专属码错误')
+          this.show = false
         })
     },
     goLive(i) {
@@ -125,11 +128,11 @@ export default {
       this.$refs[type].focus()
     },
     clear(type) {
-      this[type] = ""
+      this.form[type] = ""
       this.inputFocus(type)
     },
     closeHandle() {
-      this.code = ''
+      this.form.code = ''
       document.body.scrollTop = 0
       document.documentElement.scrollTop = 0
     }

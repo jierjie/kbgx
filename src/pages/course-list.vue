@@ -87,6 +87,7 @@ export default {
         })
         .catch(() => {
           this.$toast('专属码错误')
+          this.show = false
         })
     },
     inputFocus(type) {
