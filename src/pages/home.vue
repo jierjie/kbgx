@@ -21,6 +21,14 @@
         </li>
       </ul>
     </div>
+    <van-popup v-model="show" closeable @close='closeHandle'>
+      <div class='my-pop'>
+        <i>专属码</i>
+        <input type="text" placeholder="请输入专属码" v-model.trim="code" @focus="inputFocus('code')" ref='code'>
+        <span class="clear" v-show="code" @click="clear('code')">×</span>
+        <div @click='submit' :class="{'btn':true,'no-active':!isSubmit}">确认</div>
+      </div>
+    </van-popup>
   </div>
 </template>
 
@@ -33,7 +41,10 @@ export default {
     return {
       topicsList: [],
       liveList: [],
-      gzhUrl: ''
+      gzhUrl: '',
+      code: '',
+      show: false,
+      live: {}
     }
   },
   computed: {
@@ -42,7 +53,7 @@ export default {
         return {
           ...i,
           imgUrl: localStorage.originUrl + i.image,
-          liveUrl: localStorage.originUrl + i.url
+          liveUrl: i.url
         }
       })
     },
@@ -53,6 +64,12 @@ export default {
           imgUrl: localStorage.originUrl + i.img_url
         }
       })
+    },
+    isSubmit() {
+      if (this.code) {
+        return true
+      }
+      return false
     }
   },
   created() {
@@ -60,8 +77,26 @@ export default {
     this.getTopics()
   },
   methods: {
+    submit() {
+      if (!this.isSubmit) {
+        return
+      }
+      // 验证码校验
+      ClassService.validate({ code: this.code, classId: this.live.id })
+        .then(res => {
+          this.show = false
+          window.location.href = this.live.liveUrl
+        })
+        .catch(() => {
+          this.$toast('专属码错误')
+        })
+    },
     goLive(i) {
-      window.location.href = i.liveUrl
+      this.show = true
+      this.live = {
+        ...i,
+        liveUrl: i.liveUrl + '?nickname=' + JSON.parse(localStorage.user).phone
+      }
     },
     // 轮播图
     getClass() {
@@ -85,6 +120,18 @@ export default {
     },
     goGZH() {
       window.location.href = this.gzhUrl
+    },
+    inputFocus(type) {
+      this.$refs[type].focus()
+    },
+    clear(type) {
+      this[type] = ""
+      this.inputFocus(type)
+    },
+    closeHandle() {
+      this.code = ''
+      document.body.scrollTop = 0
+      document.documentElement.scrollTop = 0
     }
   }
 }
@@ -129,6 +176,47 @@ export default {
         img {
           width: 100%;
         }
+      }
+    }
+  }
+  .my-pop {
+    position: relative;
+    padding: .6rem 0.3rem .4rem;
+    border-radius: 0.04rem;
+    >i {
+      display: block;
+      font-size: 0.32rem;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: rgba(51, 51, 51, 1);
+      line-height: 0.45rem;
+      padding-bottom: 0.3rem;
+    }
+    input {
+      width: 100%;
+      height: 0.8rem;
+    }
+    span.clear {
+      position: absolute;
+      line-height: 0.8rem;
+      right: 0.4rem;
+      color: #55b6b3;
+      opacity: 0.5;
+      font-size: 0.4rem;
+      bottom: 1.6rem;
+    }
+    .btn {
+      width: 5rem;
+      height: 0.8rem;
+      line-height: 0.8rem;
+      background: rgba(85, 182, 179, 1);
+      border-radius: 0.04rem;
+      color: rgba(255, 255, 255, 1);
+      font-size: 0.32rem;
+      text-align: center;
+      margin-top: 0.4rem;
+      &.no-active {
+        opacity: 0.5;
       }
     }
   }
