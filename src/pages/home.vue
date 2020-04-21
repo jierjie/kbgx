@@ -23,8 +23,8 @@
     </div>
     <van-popup v-model="show" closeable @close='closeHandle'>
       <div class='my-pop'>
-        <i>专属码</i>
-        <input type="text" placeholder="请输入专属码" v-model.trim="form.code" @blur='blurHandle' @focus="inputFocus('code')" ref='code'>
+        <i>课程口令</i>
+        <input type="text" placeholder="请输入课程口令" v-model.trim="form.code" @blur='blurHandle' @focus="inputFocus('code')" ref='code'>
         <span class="clear" v-show="form.code" @click="clear('code')">×</span>
         <div @click='submit' :class="{'btn':true,'no-active':!isSubmit}">确认</div>
       </div>
@@ -91,7 +91,7 @@ export default {
           window.location.href = this.live.liveUrl
         })
         .catch(() => {
-          this.$toast('专属码错误')
+          this.$toast('课程口令错误')
           // this.show = false
         })
     },
