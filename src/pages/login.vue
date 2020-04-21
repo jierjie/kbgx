@@ -86,8 +86,8 @@ export default {
 .login {
   position: relative;
   >img {
-    width: 7.5rem;
-    height: 4rem;
+    width: 100%;
+    height: auto;
   }
   h3 {
     background-color: @blue-color;
