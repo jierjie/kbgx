@@ -41,11 +41,11 @@ export default {
           ], //分享到朋友圈,
           success: function(res) {
             console.log(111, res)
-            alert(111, res)
+            // alert(111, res)
           },
           error: function(err) {
             console.log(222, err)
-            alert(222, err)
+            // alert(222, err)
           }
         })
 

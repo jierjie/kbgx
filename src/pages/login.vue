@@ -63,7 +63,7 @@ export default {
       }
       UserService.login(this.form)
         .then(res => {
-          localStorage.user = JSON.stringify({ id: res.id, phone: res.phone } || {})
+          localStorage.user = JSON.stringify({ id: res.id, phone: res.phone, name: res.name } || {})
           // this.$toast('登录成功')
           // 登录成功 跳转首页
           this.$router.push('/home')

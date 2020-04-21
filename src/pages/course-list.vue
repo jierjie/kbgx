@@ -9,7 +9,7 @@
     <van-popup v-model="show" closeable @close='closeHandle'>
       <div class='my-pop'>
         <i>专属码</i>
-        <input type="text" placeholder="请输入专属码" v-model.trim="form.code" @focus="inputFocus('code')" ref='code'>
+        <input type="text" placeholder="请输入专属码" v-model.trim="form.code" @blur='blurHandle' @focus="inputFocus('code')" ref='code'>
         <span class="clear" v-show="form.code" @click="clear('code')">×</span>
         <div @click='submit' :class="{'btn':true,'no-active':!isSubmit}">确认</div>
       </div>
@@ -31,7 +31,8 @@ export default {
       form: {
         code: ''
       },
-      course: {}
+      course: {},
+      myScrollTop: 0
     }
   },
   computed: {
@@ -64,7 +65,7 @@ export default {
     },
     goDetail(i) {
       if (i.type === 'video') {
-        this.show = true
+        this.showPopup()
         this.course = i
       } else {
         window.location.href = i.url
@@ -72,6 +73,7 @@ export default {
     },
     showPopup() {
       this.show = true
+      this.myScrollTop = this.getHeight()
     },
     submit() {
       if (!this.isSubmit) {
@@ -87,7 +89,7 @@ export default {
         })
         .catch(() => {
           this.$toast('专属码错误')
-          this.show = false
+          // this.show = false
         })
     },
     inputFocus(type) {
@@ -99,8 +101,15 @@ export default {
     },
     closeHandle() {
       this.form.code = ''
-      document.body.scrollTop = 0
-      document.documentElement.scrollTop = 0
+      this.blurHandle()
+    },
+    blurHandle() {
+      document.body.scrollTop = this.myScrollTop
+      document.documentElement.scrollTop = this.myScrollTop
+    },
+    getHeight() {
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      return scrollTop
     }
   }
 }

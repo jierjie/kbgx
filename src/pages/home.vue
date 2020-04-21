@@ -24,7 +24,7 @@
     <van-popup v-model="show" closeable @close='closeHandle'>
       <div class='my-pop'>
         <i>专属码</i>
-        <input type="text" placeholder="请输入专属码" v-model.trim="form.code" @focus="inputFocus('code')" ref='code'>
+        <input type="text" placeholder="请输入专属码" v-model.trim="form.code" @blur='blurHandle' @focus="inputFocus('code')" ref='code'>
         <span class="clear" v-show="form.code" @click="clear('code')">×</span>
         <div @click='submit' :class="{'btn':true,'no-active':!isSubmit}">确认</div>
       </div>
@@ -46,7 +46,8 @@ export default {
         code: ''
       },
       show: false,
-      live: {}
+      live: {},
+      myScrollTop: 0
     }
   },
   computed: {
@@ -91,14 +92,14 @@ export default {
         })
         .catch(() => {
           this.$toast('专属码错误')
-          this.show = false
+          // this.show = false
         })
     },
     goLive(i) {
-      this.show = true
+      this.showPopup()
       this.live = {
         ...i,
-        liveUrl: i.liveUrl + '?nickname=' + JSON.parse(localStorage.user).phone
+        liveUrl: i.liveUrl + '?nickname=' + JSON.parse(localStorage.user).name
       }
     },
     // 轮播图
@@ -124,6 +125,10 @@ export default {
     goGZH() {
       window.location.href = this.gzhUrl
     },
+    showPopup() {
+      this.show = true
+      this.myScrollTop = this.getHeight()
+    },
     inputFocus(type) {
       this.$refs[type].focus()
     },
@@ -133,8 +138,15 @@ export default {
     },
     closeHandle() {
       this.form.code = ''
-      document.body.scrollTop = 0
-      document.documentElement.scrollTop = 0
+      this.blurHandle()
+    },
+    blurHandle() {
+      document.body.scrollTop = this.myScrollTop
+      document.documentElement.scrollTop = this.myScrollTop
+    },
+    getHeight() {
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      return scrollTop
     }
   }
 }
@@ -144,7 +156,7 @@ export default {
 <style lang='less' scoped>
 @blue-color : #55B6B3;
 .home {
-  padding: 0 0.3rem;
+  padding: 0 0.3rem 0.6rem;
   min-height: 100vh;
   .live {
     margin-bottom: .5rem;
