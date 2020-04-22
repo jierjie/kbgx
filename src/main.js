@@ -7,7 +7,6 @@ import router from './router'
 import 'video.js/dist/video-js.css'
 import '@/assets/css/base.css'
 import '@/utils/rem.js'
-import '@/assets/icon/iconfont.css'
 import wx from 'weixin-js-sdk'
 import {
   Checkbox,
