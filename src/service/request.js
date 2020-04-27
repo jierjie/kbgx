@@ -62,7 +62,7 @@ service.interceptors.response.use(
     // console.log('response-err', error.response)
     if (error.response && +error.response.status === 401) {
       // Notify({ type: 'danger', message: '请您先登录' })
-      router.push('/')
+      // router.push('/')
       return Promise.reject(error)
     }
     // Notify({ type: 'danger', message: error.message || '操作失败！' })

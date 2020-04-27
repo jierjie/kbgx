@@ -101,6 +101,7 @@ export default {
         ...i,
         liveUrl: i.liveUrl + '?nickname=' + JSON.parse(localStorage.user).name
       }
+      window.location.href = this.live.liveUrl
     },
     // 轮播图
     getClass() {
@@ -160,13 +161,13 @@ export default {
   min-height: 100vh;
   .live {
     margin-bottom: .5rem;
-    height: 3.2rem;
+    height: 6.9rem * 0.5625;
     background: #EAF2F9;
     .van-swipe {
-      height: 3.2rem;
+      height: 6.9rem * 0.5625;
       img {
-        height: 3.2rem;
         width: 6.9rem;
+        height: 6.9rem * 0.5625;
       }
     }
   }
