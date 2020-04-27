@@ -96,7 +96,7 @@ export default {
         })
     },
     goLive(i) {
-      this.showPopup()
+      // this.showPopup() //取消验证口令
       this.live = {
         ...i,
         liveUrl: i.liveUrl + '?nickname=' + JSON.parse(localStorage.user).name
