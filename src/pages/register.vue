@@ -46,8 +46,8 @@
           </li>
           <li>
             <span>职位</span>
-            <p @click="showPosition = true" :class="{'active':form.positon}">
-              {{form.positon || '点击选择'}}
+            <p @click="showPosition = true" :class="{'active':form.position}">
+              {{form.position || '点击选择'}}
             </p>
           </li>
           <li>
@@ -91,7 +91,7 @@ export default {
         province: '',
         city: '',
         store: '',
-        positon: '',
+        position: '',
         address: '',
         code: ''
       },
@@ -129,7 +129,7 @@ export default {
         this.$toast('请输入门店')
         return
       }
-      if (!this.form.positon) {
+      if (!this.form.position) {
         this.$toast('请选择职位')
         return
       }
@@ -172,7 +172,7 @@ export default {
 
     },
     onConfirmPosition(val) {
-      this.form.positon = val
+      this.form.position = val
       this.showPosition = false
     },
     inputFocus(type) {
