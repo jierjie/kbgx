@@ -12,7 +12,7 @@ export default {
   name: 'App',
   created() {
     let originUrl = window.origin
-    if (window.origin === 'http://localhost:8080' || window.origin === 'http://192.168.0.105:8080') {
+    if (window.origin === 'http://localhost:8080' || window.origin === 'http://192.168.0.106:8088') {
       originUrl = 'http://39.98.132.132'
     }
     localStorage.originUrl = originUrl

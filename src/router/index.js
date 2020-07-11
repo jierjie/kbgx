@@ -58,6 +58,20 @@ export default new Router({
       }
     },
     {
+      path: '/exam',
+      component: r => require(['../pages/exam.vue'], r),
+      meta: {
+        title: '测试'
+      }
+    },
+    {
+      path: '/exam/result',
+      component: r => require(['../pages/exam-result.vue'], r),
+      meta: {
+        title: '查看答案'
+      }
+    },
+    {
       path: '*',
       redirect: '/login',
       meta: {

@@ -97,4 +97,29 @@ const WXService = {
     return Http.post(`/cooper/wx/getSignature`, data)
   }
 }
-export { ClassService, UserService, CommentService, ConstService,WXService }
+const Exam = {
+  // 获取题目 GET /cooper/exam/questions 当前classId
+  getExamQuestions: classId => {
+    return Http.get(`/cooper/exam/questions?classId=${classId}`)
+  },
+  // POST /cooper/exam/isShowExam 是否显示考试按钮  参数：userId，classId
+  isShowExam: data => {
+    return Http.post(`/cooper/exam/isShowExam`, data)
+  },
+  // POST /cooper/exam/commit 提交考试 参数：userId，classId，answer（按照顺序把答案汇总成string数组）
+  examCommit: data => {
+    return Http.post(`/cooper/exam/commit`, data)
+  },
+  // POST /cooper/exam/result 获取考试结果 参数：userId，classId
+  examResult: data => {
+    return Http.post(`/cooper/exam/result`, data)
+  }
+}
+export {
+  ClassService,
+  UserService,
+  CommentService,
+  ConstService,
+  WXService,
+  Exam
+}
