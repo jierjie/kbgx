@@ -2,18 +2,19 @@
   <div class="detail">
     <top-logo></top-logo>
     <!-- <video class='my-video' controls autoplay name="media" meted="meted" style="object-fit:fill"
-                       webkit-playsinline="true" playsinline="true" x-webkit-airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen='true'>
-                                                                                    <source src='http://39.98.132.132/videos/1/0415-01.mp4' type='video/mp4'>
-                                                                                  </video> -->
+                                                                           webkit-playsinline="true" playsinline="true" x-webkit-airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen='true'>
+                                                                                                                                        <source src='http://39.98.132.132/videos/1/0415-01.mp4' type='video/mp4'>
+                                                                                                                                      </video> -->
     <div class='my-palyer'>
       <video-player class="video-player vjs-custom-skin" autoplay meted="meted" ref="videoPlayer" :playsinline="playsinline" :options="playerOptions" @timeupdate="onPlayerTimeupdate($event)"></video-player>
     </div>
     <!-- @play="onPlayerPlay($event)"  @pause="onPlayerPause($event)"  @ended="onPlayerEnded($event)" -->
     <div class='talk'>
+      <p v-if='isShowBtn' class='exam' @click='goExam'>考试</p>
+      <p>评论</p>
       <span @click='commentHanlder()'>
         <van-icon name="chat-o" />
       </span>
-      <p>评论</p>
     </div>
     <ul>
       <li v-for='i in computedCommentList' :key='i.id' @click="commentHanlder(i.id)">
@@ -28,7 +29,7 @@
 </template>
 
 <script>
-import { CommentService, ClassService } from '@/service'
+import { CommentService, ClassService, Exam } from '@/service'
 import { TopLogo } from '@/components'
 import { videoPlayer } from 'vue-video-player'
 export default {
@@ -75,7 +76,8 @@ export default {
         userId: ''
       },
       openId: '',
-      watchTime: 0
+      watchTime: 0,
+      isShowBtn: false
     }
   },
   beforeDestroy() {
@@ -105,16 +107,30 @@ export default {
   created() {
     this.playerOptions.sources[0].src = localStorage.originUrl + sessionStorage.sources
     this.playerOptions.poster = localStorage.originUrl + sessionStorage.coverImg
-    const classId = this.$route.query.id
+    // const classId = this.$route.query.id
     this.query = {
       classId: this.$route.query.id,
       userId: this.user.id
     }
     this.logOpen(this.query)
     this.getComments(this.query)
-
+    this.isShowExam(this.query)
   },
   methods: {
+    isShowExam(data) {
+      Exam.isShowExam(data)
+        .then(res => {
+          if (res) {
+            this.isShowBtn = true
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    goExam() {
+      this.$router.push({ path: '/exam', query: { classId: this.$route.query.id } })
+    },
     addComment() {
       let data = { ...this.form }
       CommentService.addComment({ ...data, ...this.query })
@@ -184,17 +200,24 @@ export default {
   .talk {
     border-bottom: 0.01rem solid #ccc;
     padding-bottom: .3rem;
+    position: relative;
     p {
       line-height: 0.5rem;
       font-size: 0.36rem;
       font-weight: 700;
       color: rgba(51, 51, 51, 1);
+      &.exam {
+        float: right;
+      }
     }
     span {
-      float: right;
+      // float: right;
+      position: absolute;
       width: 0.4rem;
       height: 0.42rem;
       margin-top: 0.05rem;
+      top: 0;
+      left: 0.8rem;
     }
   }
   ul {

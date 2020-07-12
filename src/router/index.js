@@ -61,7 +61,7 @@ export default new Router({
       path: '/exam',
       component: r => require(['../pages/exam.vue'], r),
       meta: {
-        title: '测试'
+        title: '考试'
       }
     },
     {

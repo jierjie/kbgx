@@ -4,19 +4,19 @@
       <span>成绩单</span>
       <b></b>
     </div>
-    <p class='total'>满分100分，共5题</p>
+    <p class='total'>满分100分，共{{ questions.length }}题</p>
     <ul class='core'>
       <li>
         <p>您的得分</p>
         <div>
-          <b>80</b>
+          <b>{{ examLog.score || 0　}}</b>
           <span>分</span>
         </div>
       </li>
       <li>
         <p>答对题数</p>
         <div>
-          <b>4</b>
+          <b>{{ examLog.rightNum || 0 }}</b>
           <span>题</span>
         </div>
       </li>
@@ -26,56 +26,19 @@
       <b></b>
     </div>
     <ul class='result'>
-      <li>
-        <h6>1.下列哪项是诊断糖尿病所必须的条件 【单选20分】</h6>
+      <li v-for='(item,index) in computedQuestions' :key='item.id'>
+        <h6>{{ item.question }} 【{{ item.type==='single'?'单':'多' }}选{{ item.score }}分】</h6>
         <ul>
-          <li class='active'>
-            <p>A.静脉血糖达到诊断标准</p>
-          </li>
-          <li class='error'>
-            <p>B.尿糖阳性</p>
-          </li>
-          <li>C.有“三多一少”表现</li>
-          <li>D.有糖尿病家族史</li>
-        </ul>
-      </li>
-      <li>
-        <h6>1.下列哪项是诊断糖尿病所必须的条件 【单选20分】</h6>
-        <ul>
-          <li class='active'>
-            <p>A.静脉血糖达到诊断标准</p>
-          </li>
-          <li class='error'>
-            <p>B.尿糖阳性</p>
-          </li>
-          <li>C.有“三多一少”表现</li>
-          <li>D.有糖尿病家族史</li>
-        </ul>
-      </li>
-      <li>
-        <h6>1.下列哪项是诊断糖尿病所必须的条件 【单选20分】</h6>
-        <ul>
-          <li class='active'>
-            <p>A.静脉血糖达到诊断标准</p>
-          </li>
-          <li class='error'>
-            <p>B.尿糖阳性</p>
-          </li>
-          <li>C.有“三多一少”表现</li>
-          <li>D.有糖尿病家族史</li>
-        </ul>
-      </li>
-      <li>
-        <h6>1.下列哪项是诊断糖尿病所必须的条件 【单选20分】</h6>
-        <ul>
-          <li class='active'>
-            <p>A.静脉血糖达到诊断标准</p>
-          </li>
-          <li class='error'>
-            <p>B.尿糖阳性</p>
-          </li>
-          <li>C.有“三多一少”表现</li>
-          <li>D.有糖尿病家族史</li>
+          <template v-if="item.type==='single'">
+            <li v-for='i in item.options' :key='i.key' :class="{'error':(examLog.answer[index] !== item.result && examLog.answer[index]===i.key),'active':(item.result===i.key)}">
+              <p>{{ i.key }}. {{ i.label }}</p>
+            </li>
+          </template>
+          <template v-else>
+            <li v-for='i in item.options' :key='i.key' :class="{'error':(examLog.answer[index].indexOf(i.key)!==-1 && item.result.indexOf(i.key)===-1),'active':item.result.indexOf(i.key) !==-1 ?true:false}">
+              <p>{{ i.key }}. {{ i.label }}</p>
+            </li>
+          </template>
         </ul>
       </li>
     </ul>
@@ -88,20 +51,44 @@ import { Exam } from '@/service'
 export default {
   data() {
     return {
-      examList: [
-        {}
-      ]
+      query: {},
+      user: JSON.parse(localStorage.user || '{}'),
+      examLog: {
+        answer: [],
+        score: '',
+        rightNum: '',
+      },
+      questions: []
     }
   },
   computed: {
-
+    computedQuestions() {
+      return this.questions.map(i => {
+        return {
+          ...i,
+          result: i.result.length > 1 ? i.result.split('') : i.result
+        }
+      })
+    }
   },
   created() {
-
+    this.query = {
+      classId: this.$route.query.classId,
+      userId: this.user.id
+    }
+    this.examResult(this.query)
   },
   methods: {
+    examResult(data) {
+      Exam.examResult(data)
+        .then(res => {
+          console.log(res)
+          this.questions = res.questions || []
+          this.examLog = { ...res.examLog }
+        })
+    },
     angin() {
-      this.$router.push('/exam')
+      this.$router.push({ path: '/exam', query: { classId: this.$route.query.classId } })
     }
   }
 }

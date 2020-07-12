@@ -1,56 +1,19 @@
 <template>
   <div class="exam">
     <ul>
-      <li>
-        <h6>1.下列哪项是诊断糖尿病所必须的条件 【单选20分】</h6>
+      <li v-for='(item,index) in examList' :key='item.id'>
+        <h6>{{ item.question }} 【{{ item.type==='single'?'单':'多' }}选{{ item.score }}分】</h6>
         <ul>
-          <li class='active'>
-            <p>A.静脉血糖达到诊断标准</p>
-          </li>
-          <li class='error'>
-            <p>B.尿糖阳性</p>
-          </li>
-          <li>C.有“三多一少”表现</li>
-          <li>D.有糖尿病家族史</li>
-        </ul>
-      </li>
-      <li>
-        <h6>1.下列哪项是诊断糖尿病所必须的条件 【单选20分】</h6>
-        <ul>
-          <li class='active'>
-            <p>A.静脉血糖达到诊断标准</p>
-          </li>
-          <li class='error'>
-            <p>B.尿糖阳性</p>
-          </li>
-          <li>C.有“三多一少”表现</li>
-          <li>D.有糖尿病家族史</li>
-        </ul>
-      </li>
-      <li>
-        <h6>1.下列哪项是诊断糖尿病所必须的条件 【单选20分】</h6>
-        <ul>
-          <li class='active'>
-            <p>A.静脉血糖达到诊断标准</p>
-          </li>
-          <li class='error'>
-            <p>B.尿糖阳性</p>
-          </li>
-          <li>C.有“三多一少”表现</li>
-          <li>D.有糖尿病家族史</li>
-        </ul>
-      </li>
-      <li>
-        <h6>1.下列哪项是诊断糖尿病所必须的条件 【单选20分】</h6>
-        <ul>
-          <li class='active'>
-            <p>A.静脉血糖达到诊断标准</p>
-          </li>
-          <li class='error'>
-            <p>B.尿糖阳性</p>
-          </li>
-          <li>C.有“三多一少”表现</li>
-          <li>D.有糖尿病家族史</li>
+          <template v-if="item.type==='single'">
+            <li v-for='i in item.options' :key='i.key' @click='getKeys(i,index)' :class="{'active':keys[index]===i.key}">
+              <p>{{ i.key }}. {{ i.label }}</p>
+            </li>
+          </template>
+          <template v-else>
+            <li v-for='i in item.options' :key='i.key' @click='getKeys(i,index)' :class="{'active':(keys[index] instanceof Array) && keys[index].indexOf(i.key) !==-1 ?true:false}">
+              <p>{{ i.key }}. {{ i.label }}</p>
+            </li>
+          </template>
         </ul>
       </li>
     </ul>
@@ -63,21 +26,75 @@ import { Exam } from '@/service'
 export default {
   data() {
     return {
-      examList: [
-        {}
-      ],
+      query: {},
+      user: JSON.parse(localStorage.user || '{}'),
+      examList: [],
       keys: []
     }
   },
-  computed: {
-
-  },
   created() {
-
+    this.query = {
+      classId: this.$route.query.classId,
+      userId: this.user.id
+    }
+    this.getExamQuestions()
   },
   methods: {
+    getExamQuestions() {
+      Exam.getExamQuestions(this.query.classId)
+        .then(res => {
+          this.examList = res
+        })
+    },
+    getKeys(item, index) {
+      if (this.examList[index].type === 'single') {
+        // 单选
+        if (this.keys[index] === item.key) {
+          this.$set(this.keys, index, '')
+          return
+        }
+        this.$set(this.keys, index, item.key)
+      } else {
+        // 多选
+        this.keys[index] = this.keys[index] || []
+        let itemIndex = ''
+        this.keys[index].map((i, index) => {
+          if (i === item.key) {
+            itemIndex = index
+          }
+        })
+        if (itemIndex || itemIndex === 0) {
+          this.keys[index].splice(itemIndex, 1)
+          this.$set(this.keys, index, this.keys[index])
+        } else {
+          this.keys[index].push(item.key)
+          this.$set(this.keys, index, this.keys[index])
+        }
+      }
+    },
     submit() {
-      this.$router.push('/exam/result')
+      let Index = 0
+      this.keys.map(i => {
+        if (i instanceof Array && i.length) {
+          Index++
+        } else if (!(i instanceof Array) && i) {
+          Index++
+        }
+      })
+      if (Index !== this.examList.length) {
+        this.$toast('请答题完整')
+        return
+      }
+      // 都有值
+      this.examCommit({ ...this.query, answer: JSON.stringify(this.keys) })
+    },
+    examCommit(data) {
+      Exam.examCommit(data)
+        .then(res => {
+          if (res) {
+            this.$router.push({ path: '/exam/result', query: { classId: this.$route.query.classId } })
+          }
+        })
     }
   }
 }

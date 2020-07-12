@@ -104,7 +104,7 @@ const Exam = {
   },
   // POST /cooper/exam/isShowExam 是否显示考试按钮  参数：userId，classId
   isShowExam: data => {
-    return Http.post(`/cooper/exam/isShowExam`, data)
+    return Http.get(`/cooper/exam/isShowExam`, { params: data })
   },
   // POST /cooper/exam/commit 提交考试 参数：userId，classId，answer（按照顺序把答案汇总成string数组）
   examCommit: data => {
@@ -112,7 +112,7 @@ const Exam = {
   },
   // POST /cooper/exam/result 获取考试结果 参数：userId，classId
   examResult: data => {
-    return Http.post(`/cooper/exam/result`, data)
+    return Http.get(`/cooper/exam/result`, { params: data })
   }
 }
 export {
