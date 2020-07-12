@@ -2,19 +2,27 @@
   <div class="detail">
     <top-logo></top-logo>
     <!-- <video class='my-video' controls autoplay name="media" meted="meted" style="object-fit:fill"
-                                                                           webkit-playsinline="true" playsinline="true" x-webkit-airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen='true'>
-                                                                                                                                        <source src='http://39.98.132.132/videos/1/0415-01.mp4' type='video/mp4'>
-                                                                                                                                      </video> -->
+                                                                                                                               webkit-playsinline="true" playsinline="true" x-webkit-airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen='true'>
+                                                                                                                                                                                            <source src='http://39.98.132.132/videos/1/0415-01.mp4' type='video/mp4'>
+                                                                                                                                                                                          </video> -->
     <div class='my-palyer'>
       <video-player class="video-player vjs-custom-skin" autoplay meted="meted" ref="videoPlayer" :playsinline="playsinline" :options="playerOptions" @timeupdate="onPlayerTimeupdate($event)"></video-player>
     </div>
     <!-- @play="onPlayerPlay($event)"  @pause="onPlayerPause($event)"  @ended="onPlayerEnded($event)" -->
     <div class='talk'>
-      <p v-if='isShowBtn' class='exam' @click='goExam'>考试</p>
-      <p>评论</p>
-      <span @click='commentHanlder()'>
-        <van-icon name="chat-o" />
-      </span>
+      <div class='left'>
+        <p>评论</p>
+        <span @click='commentHanlder()'>
+          <van-icon name="chat-o" />
+        </span>
+      </div>
+      <div class='right' v-if='isShowBtn' @click='goExam'>
+        <p class='exam'>考试</p>
+        <span>
+          <van-icon name="todo-list-o" />
+        </span>
+      </div>
+
     </div>
     <ul>
       <li v-for='i in computedCommentList' :key='i.id' @click="commentHanlder(i.id)">
@@ -128,8 +136,18 @@ export default {
           console.log(err)
         })
     },
+    examResult(data) {
+      Exam.examResult(data)
+        .then(res => {
+          if (res) {
+            this.$router.push({ path: '/exam/result', query: { classId: this.$route.query.id } })
+          } else {
+            this.$router.push({ path: '/exam', query: { classId: this.$route.query.id } })
+          }
+        })
+    },
     goExam() {
-      this.$router.push({ path: '/exam', query: { classId: this.$route.query.id } })
+      this.examResult(this.query)
     },
     addComment() {
       let data = { ...this.form }
@@ -200,21 +218,26 @@ export default {
   .talk {
     border-bottom: 0.01rem solid #ccc;
     padding-bottom: .3rem;
-    position: relative;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0;
     p {
+      display: inline-block;
+      vertical-align: middle;
       line-height: 0.5rem;
       font-size: 0.36rem;
       font-weight: 700;
       color: rgba(51, 51, 51, 1);
-      &.exam {
-        float: right;
-      }
+      padding-right: 0.1rem;
     }
     span {
       // float: right;
-      position: absolute;
+      // position: absolute;
+      display: inline-block;
+      vertical-align: middle;
       width: 0.4rem;
       height: 0.42rem;
+      font-size: 0.4rem;
       margin-top: 0.05rem;
       top: 0;
       left: 0.8rem;

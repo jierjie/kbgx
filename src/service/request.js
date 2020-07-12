@@ -43,7 +43,9 @@ service.interceptors.response.use(
     // console.log(response)
     if (response.data) {
       if (response.data.code === 200) {
-        return response.data.data ? response.data.data : true
+        return response.data.data || response.data.data === false
+          ? response.data.data
+          : true
       } else {
         if (response.data.msg) {
           Toast(response.data.msg)
