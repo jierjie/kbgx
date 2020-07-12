@@ -2,9 +2,9 @@
   <div class="detail">
     <top-logo></top-logo>
     <!-- <video class='my-video' controls autoplay name="media" meted="meted" style="object-fit:fill"
-                                                                                                                               webkit-playsinline="true" playsinline="true" x-webkit-airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen='true'>
-                                                                                                                                                                                            <source src='http://39.98.132.132/videos/1/0415-01.mp4' type='video/mp4'>
-                                                                                                                                                                                          </video> -->
+                                                                                                                                   webkit-playsinline="true" playsinline="true" x-webkit-airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen='true'>
+                                                                                                                                                                                                <source src='http://39.98.132.132/videos/1/0415-01.mp4' type='video/mp4'>
+                                                                                                                                                                                              </video> -->
     <div class='my-palyer'>
       <video-player class="video-player vjs-custom-skin" autoplay meted="meted" ref="videoPlayer" :playsinline="playsinline" :options="playerOptions" @timeupdate="onPlayerTimeupdate($event)"></video-player>
     </div>
