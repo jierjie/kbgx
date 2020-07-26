@@ -72,6 +72,13 @@ export default new Router({
       }
     },
     {
+      path: '/ops/opsbychen',
+      component: r => require(['../pages/opsbychen.vue'], r),
+      meta: {
+        title: '运维'
+      }
+    },
+    {
       path: '*',
       redirect: '/login',
       meta: {
