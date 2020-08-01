@@ -1,6 +1,6 @@
 <template>
   <div class='top'>
-    <img :class="{'sjk':true,'bstop':user.app==='BS'}" src="@/assets/img/sjk.png" alt="">
+    <img class='sjk' src="@/assets/img/sjk.png" alt="">
     <div v-if="user.app==='COOPER'">
       <img class='logo' src="@/assets/img/logo-Blue.png" alt="">
     </div>
@@ -43,9 +43,6 @@ export default {
       width: 2.75rem;
       float: right;
     }
-    &.bstop {
-      margin-top: 0.1rem;
-    }
   }
   .jm {
     .jmpng {
@@ -53,6 +50,7 @@ export default {
     }
   }
   .bs {
+    padding-top: 0.2rem;
     .bspng {
       width: 1.3rem;
     }
