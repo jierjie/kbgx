@@ -88,7 +88,7 @@ export default {
         })
     },
     angin() {
-      this.$router.push({ path: '/exam', query: { classId: this.$route.query.classId } })
+      this.$router.replace({ path: '/exam', query: { classId: this.$route.query.classId } })
     }
   }
 }

@@ -139,7 +139,7 @@ export default {
       }
       UserService.registry(this.form)
         .then(res => {
-          localStorage.user = JSON.stringify({ id: res.id, phone: res.phone, name: res.name } || {})
+          localStorage.user = JSON.stringify({ id: res.id, phone: res.phone, name: res.name, app: res.app } || {})
           this.$toast('注册成功')
           // 登录成功 跳转首页
           this.$router.push('/home')

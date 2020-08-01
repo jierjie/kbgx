@@ -11,7 +11,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/cooper': {
-        target: 'http://v5ztk9.natappfree.cc', // target host
+        target: 'http://8335t7.natappfree.cc', // target host
         // target: 'http://39.98.132.132:8080', // target host
         changeOrigin: true, // needed for virtual hosted sites
         pathRewrite: {
@@ -19,7 +19,7 @@ module.exports = {
         }
       },
       '/user': {
-        target: 'http://v5ztk9.natappfree.cc', // target host
+        target: 'http://8335t7.natappfree.cc', // target host
         // target: 'http://39.98.132.132:8080', // target host
         changeOrigin: true, // needed for virtual hosted sites
         pathRewrite: {

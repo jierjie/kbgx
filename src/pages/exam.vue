@@ -92,7 +92,7 @@ export default {
       Exam.examCommit(data)
         .then(res => {
           if (res) {
-            this.$router.push({ path: '/exam/result', query: { classId: this.$route.query.classId } })
+            this.$router.replace({ path: '/exam/result', query: { classId: this.$route.query.classId } })
           }
         })
     }
