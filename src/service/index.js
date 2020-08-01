@@ -115,11 +115,39 @@ const Exam = {
     return Http.get(`/cooper/exam/result`, { params: data })
   }
 }
+const Opsbychen = {
+
+  //增加角色
+  addRole: data => {
+    return Http.post(`/cooper/admin/addRole`,data )
+  },
+  //增加用户角色
+  addUserToRole: data => {
+    return Http.post(`/cooper/admin/addUserToRole`,data)
+  },
+  //增加角色课程
+  addClassToRole: data => {
+    return Http.post(`/cooper/admin/addClassToRole`, data )
+  },
+  //获取用户列表
+  getAllUser: data => {
+    return Http.get(`/cooper/admin/getAllUser`)
+  },
+  //获取角色列表
+  getAllRole: data => {
+    return Http.get(`/cooper/admin/getAllRole`)
+  },
+  //获取课程列表
+  getAllClass: data => {
+    return Http.get(`/cooper/admin/getAllClass`)
+  }
+}
 export {
   ClassService,
   UserService,
   CommentService,
   ConstService,
   WXService,
-  Exam
+  Exam,
+  Opsbychen
 }
