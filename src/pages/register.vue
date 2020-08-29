@@ -164,6 +164,7 @@ export default {
         return
       }
       this.isActive = 2
+      window.scrollTo(0, 0)
     },
     onConfirm(values) {
       this.form.province = values[0].name || ''
