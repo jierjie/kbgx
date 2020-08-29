@@ -65,8 +65,14 @@ export default {
     },
     goDetail(i) {
       if (i.type === 'video') {
-        this.showPopup()
         this.course = i
+        if (JSON.parse(localStorage.user || '{}').app === 'COOPER') {
+          this.showPopup()
+        }else{
+          sessionStorage.sources = this.course.url
+          sessionStorage.coverImg = this.course.coverImg
+          this.$router.push({ path: '/detail', query: { id: this.course.id } })
+        }
       } else {
         window.location.href = i.url
       }
