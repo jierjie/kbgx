@@ -21,7 +21,7 @@
         </div>
       </li>
     </ul>
-    <div class='report'>
+<!--    <div class='report'>
       <span>答案解析</span>
       <b></b>
     </div>
@@ -42,7 +42,7 @@
         </ul>
       </li>
     </ul>
-    <span class='submit' @click='angin'>重做</span>
+    <span class='submit' @click='angin'>重做</span>-->
   </div>
 </template>
 
