@@ -68,7 +68,7 @@ export default new Router({
       path: '/exam/result',
       component: r => require(['../pages/exam-result.vue'], r),
       meta: {
-        title: '查看答案'
+        title: '查看成绩'
       }
     },
     {
