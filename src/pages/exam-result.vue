@@ -165,7 +165,7 @@ export default {
         font-size: 0;
         text-align: center;
         b {
-          font-size: 1rem;
+          font-size: 0.9rem;
           font-weight: 400;
           display: inline-block;
         }
