@@ -3,6 +3,11 @@
     <div class='register-form'>
       <div class='one' v-show='isActive===1'>
         <ul>
+          <li class='code'>
+            <span>邀请码</span>
+            <input type="text" v-model.trim="form.code">
+            <h6>请向库博销售代表获取</h6>
+          </li>
           <li>
             <span>姓名</span>
             <input type="text" v-model.trim="form.name" placeholder="请输入您的姓名" ref='name'>
@@ -53,11 +58,6 @@
           <li>
             <span>联系地址</span>
             <input type="text" placeholder="将关联后续活动" v-model.trim="form.address">
-          </li>
-          <li class='code'>
-            <span>邀请码</span>
-            <input type="text" v-model.trim="form.code">
-            <h6>请向库博销售代表获取</h6>
           </li>
         </ul>
         <p @click='register'>立即注册</p>
@@ -133,10 +133,6 @@ export default {
         this.$toast('请选择职位')
         return
       }
-      if (!this.form.code) {
-        this.$toast('请输入邀请码')
-        return
-      }
       UserService.registry(this.form)
         .then(res => {
           localStorage.user = JSON.stringify({ id: res.id, phone: res.phone, name: res.name, app: res.app } || {})
@@ -153,6 +149,10 @@ export default {
     },
     next() {
       if (!this.isNext) {
+        return
+      }
+      if (!this.form.code) {
+        this.$toast('请输入邀请码')
         return
       }
       if (!(/^1[3456789]\d{9}$/.test(this.form.phone))) {
