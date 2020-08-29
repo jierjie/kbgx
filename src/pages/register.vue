@@ -51,7 +51,7 @@
           </li>
           <li>
             <span>职位</span>
-            <p @click="showPosition = true" :class="{'active':form.position}">
+            <p @click="showPositionHandle" :class="{'active':form.position}">
               {{form.position || '点击选择'}}
             </p>
           </li>
@@ -182,6 +182,10 @@ export default {
     clear(type) {
       this.form[type] = ""
       this.inputFocus(type)
+    },
+    showPositionHandle() {
+      window.scrollTo(0, 0)
+      this.showPosition = true
     }
   }
 }
