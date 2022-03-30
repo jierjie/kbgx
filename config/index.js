@@ -11,14 +11,15 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/cooper': {
-        target: 'http://raqbxt.natappfree.cc', // target host
+        target: 'http://39.98.132.132:8080', // target host
+        // target: 'http://raqbxt.natappfree.cc', // target host
         changeOrigin: true, // needed for virtual hosted sites
         pathRewrite: {
           // '^/cooper': '/cooper' //需要rewrite重写的,
         }
       },
       '/user': {
-        target: 'http://raqbxt.natappfree.cc', // target host
+        target: 'http://39.98.132.132:8080', // target host
         changeOrigin: true, // needed for virtual hosted sites
         pathRewrite: {
           // '^/user': '/user' //需要rewrite重写的,
@@ -27,8 +28,8 @@ module.exports = {
     },
 
     // Various Dev Server settings
-    host: '192.168.0.106', // can be overwritten by process.env.HOST
-    // host: 'localhost', // can be overwritten by process.env.HOST
+    // host: '192.168.0.106', // can be overwritten by process.env.HOST
+    host: 'localhost', // can be overwritten by process.env.HOST
     port: 8088, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,

@@ -72,6 +72,13 @@ export default new Router({
       }
     },
     {
+      path: '/score',
+      component: r => require(['../pages/score.vue'], r),
+      meta: {
+        title: '积分页面'
+      }
+    },
+    {
       path: '/ops/opsbychen',
       component: r => require(['../pages/opsbychen.vue'], r),
       meta: {

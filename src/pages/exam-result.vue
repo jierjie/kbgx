@@ -21,28 +21,33 @@
         </div>
       </li>
     </ul>
-<!--    <div class='report'>
-      <span>答案解析</span>
-      <b></b>
+    <div class='score'>
+      <p v-if='+examLog.score>=80'>恭喜完成答题获得5点积分</p>
+      <p v-else>非常遗憾未能获得积分</p>
+      <p @click="goScore">积分查询请点击</p>
     </div>
-    <ul class='result'>
-      <li v-for='(item,index) in computedQuestions' :key='item.id'>
-        <h6>{{ item.question }} 【{{ item.type==='single'?'单':'多' }}选{{ item.score }}分】</h6>
-        <ul>
-          <template v-if="item.type==='single'">
-            <li v-for='i in item.options' :key='i.key' :class="{'error':(examLog.answer[index] !== item.result && examLog.answer[index]===i.key),'active':(item.result===i.key)}">
-              <p>{{ i.key }}. {{ i.label }}</p>
-            </li>
-          </template>
-          <template v-else>
-            <li v-for='i in item.options' :key='i.key' :class="{'error':(examLog.answer[index].indexOf(i.key)!==-1 && item.result.indexOf(i.key)===-1),'active':item.result.indexOf(i.key) !==-1 ?true:false}">
-              <p>{{ i.key }}. {{ i.label }}</p>
-            </li>
-          </template>
-        </ul>
-      </li>
-    </ul>
-    <span class='submit' @click='angin'>重做</span>-->
+    <!--    <div class='report'>
+                      <span>答案解析</span>
+                      <b></b>
+                    </div>
+                    <ul class='result'>
+                      <li v-for='(item,index) in computedQuestions' :key='item.id'>
+                        <h6>{{ item.question }} 【{{ item.type==='single'?'单':'多' }}选{{ item.score }}分】</h6>
+                        <ul>
+                          <template v-if="item.type==='single'">
+                            <li v-for='i in item.options' :key='i.key' :class="{'error':(examLog.answer[index] !== item.result && examLog.answer[index]===i.key),'active':(item.result===i.key)}">
+                              <p>{{ i.key }}. {{ i.label }}</p>
+                            </li>
+                          </template>
+                          <template v-else>
+                            <li v-for='i in item.options' :key='i.key' :class="{'error':(examLog.answer[index].indexOf(i.key)!==-1 && item.result.indexOf(i.key)===-1),'active':item.result.indexOf(i.key) !==-1 ?true:false}">
+                              <p>{{ i.key }}. {{ i.label }}</p>
+                            </li>
+                          </template>
+                        </ul>
+                      </li>
+                    </ul>
+                    <span class='submit' @click='angin'>重做</span>-->
   </div>
 </template>
 
@@ -89,6 +94,9 @@ export default {
     },
     angin() {
       this.$router.replace({ path: '/exam', query: { classId: this.$route.query.classId } })
+    },
+    goScore() {
+      this.$router.push({ path: '/score' })
     }
   }
 }
@@ -221,6 +229,16 @@ export default {
     border-radius: 0.4rem;
     font-size: 0.38rem;
     letter-spacing: 0.2rem;
+  }
+  .score {
+    text-align: center;
+    color: @blue-color;
+    font-size: 0.3rem;
+    line-height: 0.3rem;
+    padding-top: 0.2rem;
+    p {
+      margin-bottom: 0.3rem;
+    }
   }
 }
 </style>
