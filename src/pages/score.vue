@@ -1,7 +1,7 @@
 <template>
   <div class="score_result">
     <div class='report'>
-      <span>成绩单</span>
+      <span>总积分</span>
       <b></b>
     </div>
     <ul class='core'>
@@ -17,7 +17,7 @@
       <h6>积分规则：</h6>
       <p>参加考试获得5点积分（考试得分需超过80分）。</p>
       <p>积分可累积，请前往【库博光学行业睛英汇】进行兑换，有效期1年。</p>
-      <p>积分规则解释权归平台所有，如有问题请联系后台邮箱：xxxx@xxxx。</p>
+      <p>积分规则解释权归平台所有。</p>
       <p>
         <span>积分兑换请点击：</span><img @click='goExchange' src="@/assets/img/logo.jpg" alt="">
       </p>
