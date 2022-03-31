@@ -19,7 +19,7 @@
       <p>积分可累积，请前往【库博光学行业睛英汇】进行兑换，有效期1年。</p>
       <p>积分规则解释权归平台所有，如有问题请联系后台邮箱：xxxx@xxxx。</p>
       <p>
-        <span>积分兑换请点击：</span><img @click='goExchange' src="@/assets/img/c06.png" alt="">
+        <span>积分兑换请点击：</span><img @click='goExchange' src="@/assets/img/logo.jpg" alt="">
       </p>
     </div>
   </div>
@@ -143,8 +143,7 @@ export default {
       img {
         display: inline-block;
         vertical-align: middle;
-        height: 0.4rem;
-        width: 2rem;
+        width: 2.6rem;
       }
       span {
         margin-top: 0.5rem;
