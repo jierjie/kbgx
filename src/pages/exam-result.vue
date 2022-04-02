@@ -22,7 +22,7 @@
       </li>
     </ul>
     <div class='score'>
-      <p v-if='+examLog.score>=80'>恭喜完成答题获得5点积分</p>
+      <p v-if='+examLog.score>=80'>恭喜完成答题获得30点积分</p>
       <p v-else>非常遗憾未能获得积分</p>
       <p @click="goScore">积分查询请点击</p>
     </div>
