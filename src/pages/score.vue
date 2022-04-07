@@ -15,12 +15,12 @@
     </ul>
     <div class='tip'>
       <h6>积分规则：</h6>
-      <p>参加考试获得30点积分（考试得分需超过80分）。</p>
-      <p>积分可累积，请前往【库博光学行业睛英汇】进行兑换，有效期1年。</p>
-      <p>积分规则解释权归平台所有。</p>
-      <p>
-        <span>积分兑换请点击：</span><img @click='goExchange' src="@/assets/img/logo.jpg" alt="">
+      <p>通过课后测试（80分及以上）可获得30点积分。</p>
+      <p class='exchange'>
+        <span>积分仅在当年有效，请前往</span><img @click='goExchange' src="@/assets/img/logo.jpg" alt="">
+        <span>兑换</span>
       </p>
+      <p>积分规则解释权归平台所有。</p>
     </div>
   </div>
 </template>
@@ -140,13 +140,18 @@ export default {
     p {
       color: #626675;
       padding-top: 0.16rem;
+      &.exchange {
+        font-size: 0;
+        margin-top: 0.1rem;
+      }
       img {
         display: inline-block;
-        vertical-align: middle;
-        width: 2.6rem;
+        vertical-align: top;
+        width: 2.2rem;
+        margin-top: -0.04rem;
       }
       span {
-        margin-top: 0.5rem;
+        font-size: 0.28rem;
         display: inline-block;
         line-height: 0.4rem;
         height: 0.4rem;
