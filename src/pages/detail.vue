@@ -17,7 +17,7 @@
         </span>
       </div>
       <div class='right' v-if='isShowBtn' @click='goExam'>
-        <p class='exam'>考试</p>
+        <p class='exam'>课后小测试</p>
         <span>
           <van-icon name="todo-list-o" />
         </span>
