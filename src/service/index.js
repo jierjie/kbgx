@@ -145,6 +145,9 @@ const Score = {
   // GET /cooper/score/getScore
   getScore: userId => {
     return Http.get(`/cooper/score/getScore?userId=${userId}`)
+  },
+  getScoreLogs: userId => {
+    return Http.get(`/cooper/score/getScoreLogs?userId=${userId}`)
   }
 }
 export {

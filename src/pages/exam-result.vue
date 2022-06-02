@@ -4,20 +4,20 @@
       <span>成绩单</span>
       <b></b>
     </div>
-    <p class='total'>满分100分，共{{ questions.length }}题</p>
+    <p class='total'>满分100，共{{ questions.length }}题</p>
     <ul class='core'>
       <li>
-        <p>您的得分</p>
+        <p>您的成绩</p>
         <div>
           <b>{{ examLog.score || 0　}}</b>
-          <span>分</span>
+          <!-- <span>分</span> -->
         </div>
       </li>
       <li>
         <p>答对题数</p>
         <div>
           <b>{{ examLog.rightNum || 0 }}</b>
-          <span>题</span>
+          <!-- <span>题</span> -->
         </div>
       </li>
     </ul>
@@ -27,27 +27,27 @@
       <p @click="goScore">积分查询请点击</p>
     </div>
     <!--    <div class='report'>
-                      <span>答案解析</span>
-                      <b></b>
-                    </div>
-                    <ul class='result'>
-                      <li v-for='(item,index) in computedQuestions' :key='item.id'>
-                        <h6>{{ item.question }} 【{{ item.type==='single'?'单':'多' }}选{{ item.score }}分】</h6>
-                        <ul>
-                          <template v-if="item.type==='single'">
-                            <li v-for='i in item.options' :key='i.key' :class="{'error':(examLog.answer[index] !== item.result && examLog.answer[index]===i.key),'active':(item.result===i.key)}">
-                              <p>{{ i.key }}. {{ i.label }}</p>
-                            </li>
-                          </template>
-                          <template v-else>
-                            <li v-for='i in item.options' :key='i.key' :class="{'error':(examLog.answer[index].indexOf(i.key)!==-1 && item.result.indexOf(i.key)===-1),'active':item.result.indexOf(i.key) !==-1 ?true:false}">
-                              <p>{{ i.key }}. {{ i.label }}</p>
-                            </li>
-                          </template>
-                        </ul>
-                      </li>
-                    </ul>
-                    <span class='submit' @click='angin'>重做</span>-->
+                        <span>答案解析</span>
+                        <b></b>
+                      </div>
+                      <ul class='result'>
+                        <li v-for='(item,index) in computedQuestions' :key='item.id'>
+                          <h6>{{ item.question }} 【{{ item.type==='single'?'单':'多' }}选{{ item.score }}分】</h6>
+                          <ul>
+                            <template v-if="item.type==='single'">
+                              <li v-for='i in item.options' :key='i.key' :class="{'error':(examLog.answer[index] !== item.result && examLog.answer[index]===i.key),'active':(item.result===i.key)}">
+                                <p>{{ i.key }}. {{ i.label }}</p>
+                              </li>
+                            </template>
+                            <template v-else>
+                              <li v-for='i in item.options' :key='i.key' :class="{'error':(examLog.answer[index].indexOf(i.key)!==-1 && item.result.indexOf(i.key)===-1),'active':item.result.indexOf(i.key) !==-1 ?true:false}">
+                                <p>{{ i.key }}. {{ i.label }}</p>
+                              </li>
+                            </template>
+                          </ul>
+                        </li>
+                      </ul>
+                      <span class='submit' @click='angin'>重做</span>-->
   </div>
 </template>
 

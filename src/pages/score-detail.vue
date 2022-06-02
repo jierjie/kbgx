@@ -1,31 +1,28 @@
 <template>
-  <div class="score_result">
+  <div class="score_detail">
     <div class='report'>
-      <span>总积分</span>
+      <span>积分明细</span>
       <b></b>
     </div>
     <ul class='core'>
       <li>
-        <p>您获得积分</p>
+        <p>答题总积分</p>
         <div>
           <b>{{ myScore || 0　}}</b>
           <span>点</span>
         </div>
       </li>
     </ul>
-    <p class='score_tip' @click="goScoreDetail">积分明细查询请点击</p>
-    <div class='tip'>
-      <h6>积分规则：</h6>
-      <p>通过课后测试（80分及以上）可获得30点积分。</p>
-      <p class='exchange'>
-        <span>积分仅在当年有效，请前往</span><img @click='goExchange' src="@/assets/img/logo.jpg" alt="">
-        <span>兑换</span>
-      </p>
-      <!-- <p>积分规则解释权归平台所有。</p> -->
-      <p>点击“睛英汇”专区，在“我的”页面查看库点和明细</p>
-    </div>
-    <img class='score_tip_img' src="@/assets/img/score_tip.jpg" alt="">
-    <p class='copy_right'>规则解释权归平台所有</p>
+    <ul class='detail_list'>
+      <li class='title'>
+        <i>课程名称</i>
+        <span>获得积分</span>
+      </li>
+      <li class='detail' v-for="(i,index) in list" :key="index">
+        <i>{{i.ClassName}}</i>
+        <span>{{i.examScore}}点</span>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -35,32 +32,30 @@ export default {
   data() {
     return {
       user: JSON.parse(localStorage.user || '{}'),
-      myScore: 0
+      myScore: 0,
+      list: []
     }
   },
   created() {
-    this.getScore()
+    this.myScore = this.$route.query.myScore
+    this.getScoreLogs()
   },
   methods: {
-    getScore() {
-      Score.getScore(this.user.id)
+    getScoreLogs() {
+      Score.getScoreLogs(this.user.id)
         .then(res => {
-          this.myScore = res.score || 0
+          this.list = res
+          console.log(res)
         })
-    },
-    goScoreDetail() {
-      this.$router.push({ path: '/score/detail', query: { myScore: this.myScore } })
-    },
-    goExchange() {
-      window.location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5ODA4MjAxOA==&scene=123#wechat_redirect'
     }
+
   }
 }
 </script>
 
 <style lang='less' scoped>
 @blue-color : #1AC1C9;
-.score_result {
+.score_detail {
   position: relative;
   padding: 0.32rem 0 0.3rem;
   .report {
@@ -134,49 +129,36 @@ export default {
       }
     }
   }
-  .tip {
-    font-size: 0.28rem;
-    padding: 0.2rem 0.6rem 0;
-    h6 {
-      font-size: 0.32rem;
-      font-weight: 400;
-      color: #333;
-      padding: 0.2rem 0 0.1rem;
-    }
-    p {
-      color: #626675;
-      padding-top: 0.16rem;
-      &.exchange {
-        font-size: 0;
-        margin-top: 0.1rem;
-      }
-      img {
+  .detail_list {
+    padding: 0.2rem 0.6rem;
+    li {
+      font-size: 0;
+      padding: 0.1rem 0.1rem;
+      position: relative;
+      i,
+      span {
+        font-size: 0.26rem;
         display: inline-block;
-        vertical-align: top;
-        width: 2.2rem;
-        margin-top: -0.04rem;
+        text-align: center;
       }
       span {
-        font-size: 0.28rem;
-        display: inline-block;
-        line-height: 0.4rem;
-        height: 0.4rem;
+        position: absolute;
+        width: 1.3rem;
+        right: 0.1rem;
       }
     }
-  }
-  .score_tip {
-    text-align: center;
-    font-size: 0.26rem;
-    padding-bottom: 0.68rem;
-    font-weight: 700;
-  }
-  .score_tip_img {
-    width: 90vw;
-    margin: 0.26rem auto 0.5rem;
-  }
-  .copy_right {
-    text-align: center;
-    font-size: 0.2rem;
+    .title {
+      font-weight: 700;
+      i {
+        padding-left: 0.7rem;
+      }
+    }
+    .detail {
+      border-top: 1px solid #ccc;
+      span {
+        color: #1AC1C9;
+      }
+    }
   }
 }
 </style>
