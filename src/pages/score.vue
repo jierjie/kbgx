@@ -14,18 +14,18 @@
       </li>
     </ul>
     <p class='score_tip' @click="goScoreDetail">积分明细查询请点击</p>
-    <div class='tip'>
-      <h6>积分规则：</h6>
-      <p>通过课后测试（80分及以上）可获得30点积分。</p>
-      <p class='exchange'>
-        <span>积分仅在当年有效，请前往</span><img @click='goExchange' src="@/assets/img/logo.jpg" alt="">
-        <span>兑换</span>
-      </p>
-      <!-- <p>积分规则解释权归平台所有。</p> -->
-      <p>点击“睛英汇”专区，在“我的”页面查看库点和明细</p>
-    </div>
-    <img class='score_tip_img' src="@/assets/img/score_tip.jpg" alt="">
-    <p class='copy_right'>规则解释权归平台所有</p>
+    <!--<div class='tip'>-->
+      <!--<h6>积分规则：</h6>-->
+      <!--<p>通过课后测试（80分及以上）可获得30点积分。</p>-->
+      <!--<p class='exchange'>-->
+        <!--<span>积分仅在当年有效，请前往</span><img @click='goExchange' src="@/assets/img/logo.jpg" alt="">-->
+        <!--<span>兑换</span>-->
+      <!--</p>-->
+      <!--&lt;!&ndash; <p>积分规则解释权归平台所有。</p> &ndash;&gt;-->
+      <!--<p>点击“睛英汇”专区，在“我的”页面查看库点和明细</p>-->
+    <!--</div>-->
+    <!--<img class='score_tip_img' src="@/assets/img/score_tip.jpg" alt="">-->
+    <!--<p class='copy_right'>规则解释权归平台所有</p>-->
   </div>
 </template>
 
