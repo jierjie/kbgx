@@ -63,35 +63,39 @@
         <p @click='register'>立即注册</p>
         <div class='agreement'>
           <i v-if='!isCheck' @click='agreementHandler'></i>
-          <!-- <img v-if='!isCheck' @click='agreementHandler' src="@/assets/img/check.png" alt=""> -->
           <img v-else @click='agreementHandler' src="@/assets/img/check-square.png" alt="">
           <span @click='agreementView'>阅读并接受《库博用户协议》</span>
         </div>
       </div>
        <div class='three' v-show='isActive===3'>
         <div>
-          <img v-if='!agreementList[0]' @click='agreementListHandler(0)' src="@/assets/img/check.png" alt="">
+          <!-- <img v-if='!agreementList[0]' @click='agreementListHandler(0)' src="@/assets/img/check.png" alt=""> -->
+          <i v-if='!agreementList[0]' @click='agreementListHandler(0)'></i>
           <img v-else @click='agreementListHandler(0)' src="@/assets/img/check-square.png" alt="">
           <p>本人兹同意持续接收与库博光学（关于数据控制方的完整名称和地址，请参阅库博光学的《隐私政策》）（以下简称为“库博光学”、“我们”或“我们的”）产品和服务（包括补充产品、促销与优惠、销售区域代表、新产品/服务/优惠等）有关的新闻、优惠信息和资讯，以及参加库博光学产品、服务和教育资料相关调查的邀请，且库博光学可以收集、使用、披露和向海外传输本人在下方提供的个人信息，用于依据《隐私政策》的规定进行市场活动的目的。</p>
         </div>
         <div>本人同意通过下列通信渠道接收上述信息：</div>
         <div>
-          <img v-if='!agreementList[1]' @click='agreementListHandler(1)' src="@/assets/img/check.png" alt="">
+          <i v-if='!agreementList[1]' @click='agreementListHandler(1)'></i>
+          <!-- <img v-if='!agreementList[1]' @click='agreementListHandler(1)' src="@/assets/img/check.png" alt=""> -->
           <img v-else @click='agreementListHandler(1)' src="@/assets/img/check-square.png" alt="">
           <p>电子邮箱</p>
         </div>
         <div>
-          <img v-if='!agreementList[2]' @click='agreementListHandler(2)' src="@/assets/img/check.png" alt="">
+          <i v-if='!agreementList[2]' @click='agreementListHandler(2)'></i>
+          <!-- <img v-if='!agreementList[2]' @click='agreementListHandler(2)' src="@/assets/img/check.png" alt=""> -->
           <img v-else @click='agreementListHandler(2)' src="@/assets/img/check-square.png" alt="">
           <p>电话</p>
         </div>
         <div>
-          <img v-if='!agreementList[3]' @click='agreementListHandler(3)' src="@/assets/img/check.png" alt="">
+          <i v-if='!agreementList[3]' @click='agreementListHandler(3)'></i>
+          <!-- <img v-if='!agreementList[3]' @click='agreementListHandler(3)' src="@/assets/img/check.png" alt=""> -->
           <img v-else @click='agreementListHandler(3)' src="@/assets/img/check-square.png" alt="">
           <p>短信</p>
         </div>
         <div>
-          <img v-if='!agreementList[4]' @click='agreementListHandler(4)' src="@/assets/img/check.png" alt="">
+          <i v-if='!agreementList[4]' @click='agreementListHandler(4)'></i>
+          <!-- <img v-if='!agreementList[4]' @click='agreementListHandler(4)' src="@/assets/img/check.png" alt=""> -->
           <img v-else @click='agreementListHandler(4)' src="@/assets/img/check-square.png" alt="">
           <p>邮件</p>
         </div>
@@ -141,7 +145,7 @@ export default {
       showArea: false,
       showPosition: false,
       positionList: [],
-      agreementList:[true,true,true,true,true]
+      agreementList:[false,false,false,false,false]
     }
   },
   computed: {
@@ -177,13 +181,31 @@ export default {
     agreementHandler(){
       this.isCheck = !this.isCheck
       if(this.isCheck){
-        this.agreementList = [true,true,true,true,true]
+        let temp = this.agreementList.find(i=>{
+          return !i
+        })
+        if(temp === undefined){
+          // 全选
+        }else{
+          this.isActive = 3
+          this.$toast('请先阅读并接受《库博用户协议》')
+        }
       }
     },
     agreementView(){
-      this.isActive =3
+      this.isActive = 3
     },
     register() {
+      let temp = this.agreementList.find(i=>{
+        return !i
+      })
+       if(temp === undefined){
+        // 全选
+      }else{
+        this.isActive = 3
+        this.$toast('请先阅读并接受《库博用户协议》')
+        return
+      }
       if(!this.isCheck){
         this.$toast('请先阅读并接受《库博用户协议》')
         return
@@ -276,7 +298,7 @@ export default {
     .agreement{
       padding-top: 0.16rem;
       text-align: center;
-      font-size: 0.2rem;
+      font-size: 0.24rem;
       color:#55b6b3;
       img,span,i{
         display: inline-block;
@@ -369,14 +391,21 @@ export default {
       img{
         position: absolute;
         top: 0.05rem;
-        height: 0.22rem;
-        width: 0.22rem;
+        height: 0.24rem;
+        width: 0.24rem;
       } 
+      i{
+        position: absolute;
+        top: 0.05rem;
+        height: 0.2rem;
+        width: 0.2rem;
+        border: 1px solid red;
+      }
     }
      span{
       display: block;
       text-align: center;
-      font-size: 0.2rem;
+      font-size: 0.24rem;
       color:#55b6b3;
      }
   }
